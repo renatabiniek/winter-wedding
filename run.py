@@ -60,9 +60,10 @@ def get_guest_info():
     """
     print("What's your email address?\n")
 
-    email_str = input("Enter email address:\n")
+    email_str = input("Enter email address:\n").lower()
     print("Checking your email address...\n")
     validate_email(email_str)
+    print(email_str)
 
 
 # From https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/
@@ -81,5 +82,6 @@ def validate_email(email):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please enter your email address again.\n")
+
 
 get_guest_info()
