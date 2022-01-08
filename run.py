@@ -63,7 +63,8 @@ def get_guest_info():
     email_str = input("Enter email address:\n").lower()
     print("Checking your email address...\n")
     validate_email(email_str)
-    print(email_str)
+    
+    return email_str
 
 
 # From https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/
@@ -84,4 +85,16 @@ def validate_email(email):
         print(f"Invalid data: {e}, please enter your email address again.\n")
 
 
-get_guest_info()
+def add_guest(email):
+    """
+    Identify first empty row on main worksheet and add guest email
+    """
+     print("Adding guest email to main worksheet...\n")
+     main_worksheet = SHEET.worksheet("main")
+     first_empty_row = (len(main_worksheet.get_all_values()) + 1)
+     main_worksheet.update_cell(first_empty_row, 2, email)
+     print("Email added to main worksheet...!")
+
+
+guest_email = get_guest_info()
+add_guest(guest_email)
