@@ -22,7 +22,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
-main = SHEET.worksheet('main')
+def get_guest_info():
+    """
+    Get email address from the guest
+    """
+    print("What's your email address?\n")
 
-values = main.get_all_values()
-print(values)
+    email_str = input("Enter email address:\n")
+    print(f"You entered {email_str}")
+    print("Checking email addres...")
+
+get_guest_info()
