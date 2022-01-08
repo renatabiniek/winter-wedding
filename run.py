@@ -26,6 +26,34 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
+def print_logo():
+    """
+    Prints an intro image.
+    From asciiart.
+    """
+
+    print('''
+         (\/)
+          \/
+  (\/)   .-.  .-.
+   \/   ((`-)(-`))
+         \\    //   (\/)
+          \\  //     \/
+   .="""=._))((_.="""=.
+  /  .,   .'  '.   ,.  \\
+ /__(,_.-'      '-._,)__\\
+`    /|             |\   `
+    /_|__         __|_\\
+      | `))     ((` |
+      |             |
+     -"==         =="-
+    \n 
+You've been invited to our wedding!\n
+Please RSVP here.\n
+    ''')
+
+print_logo()
+
 def get_guest_info():
     """
     Get email address from the guest
