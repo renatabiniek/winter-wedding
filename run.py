@@ -31,6 +31,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
+
 def print_logo():
     """
     Prints an intro image.
@@ -63,6 +64,7 @@ print_logo()
 # Empty list to collect responses from terminal and
 # later append to the main worksheet 
 rsvp_info = []
+
 
 def get_guest_info():
     """
@@ -119,6 +121,7 @@ def add_guest(data):
 
     print("Email and stamp added to main worksheet...!")
 
+
 def get_timestamp():
     """
     Gets current date and time and parses it into the selected format
@@ -130,33 +133,42 @@ def get_timestamp():
     rsvp_info.append(stamp)
     return stamp
 
+
 def get_y_n():
     """
     Gets Yes or No response from the guest.
     Y if attending, N if not attending.
     """
-    print("We really hope to see you there!")
-    yes_or_no = input("Are you able to join us? Enter Y (Yes) or N (No)\n").upper()
-    validate_y_n(yes_or_no)
-    print("Validating your response...\n")
-    print("Recording your response...\n")
+    while True:
+        print("We really hope to see you there!")
+        print("Are you able to join us?")
+        yes_or_no = input("Enter Y (Yes) or N (No)\n").upper()
+        
+        if validate_y_n(yes_or_no):
+            print("Thanks for letting us know!")
+            rsvp_info.append(yes_or_no)
+            print("Recording your response...\n")
+            break
 
-def validate_y_n(response):
+    return yes_or_no
+
+
+def validate_y_n(value):
     """
     Checks that the response is Y or N,
     returns True if valid response.
     """
+    responses = ["Y", "N"]
     try:
-        if response != "Y" or response != "N":
+        if not value in responses:
             raise ValueError(
-                f"You responded {response}. This seems incorrect"
+                f"You responded {value}. This seems incorrect"
             )
     except ValueError as e:
-        print(f"Invalid data: {e}, please enter Y or N.\n")
+        print(f"Invalid value: {e}, please enter Y or N.\n")
         return False 
     
     return True
-
 
 
 # def add_timestamp(date):
@@ -173,6 +185,6 @@ def validate_y_n(response):
 submission_date = get_timestamp()
 # add_timestamp(submission_date)
 guest_email = get_guest_info()
+rsvp_response = get_y_n()
 add_guest(rsvp_info)
-get_y_n()
 print(rsvp_info)
