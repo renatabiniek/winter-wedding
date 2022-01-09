@@ -136,10 +136,27 @@ def get_y_n():
     Y if attending, N if not attending.
     """
     print("We really hope to see you there!")
-    y_or_no = input("Are you able to join us? Enter Y (Yes) or N (No)\n").upper()
+    yes_or_no = input("Are you able to join us? Enter Y (Yes) or N (No)\n").upper()
+    validate_y_n(yes_or_no)
+    print("Validating your response...\n")
     print("Recording your response...\n")
-    print(y_or_no)
+
+def validate_y_n(response):
+    """
+    Checks that the response is Y or N,
+    returns True if valid response.
+    """
+    try:
+        if response != "Y" or response != "N":
+            raise ValueError(
+                f"You responded {response}. This seems incorrect"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please enter Y or N.\n")
+        return False 
     
+    return True
+
 
 
 # def add_timestamp(date):
