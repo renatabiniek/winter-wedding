@@ -13,12 +13,12 @@ from datetime import datetime
 # To use to access and update data in spreadsheet
 import gspread
 
-# To set up authentication with creds.json 
+# To set up authentication with creds.json
 # to access the project on Google Cloud
 from google.oauth2.service_account import Credentials
 
 
-# Used from CI Love Sandwiches walkthrough project 
+# Used from CI Love Sandwiches walkthrough project
 # to access data on the spreadsheet
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -170,6 +170,7 @@ def validate_y_n(value):
     
     return True
 
+
 def accept_or_decl(value):
     """
     Checks for accept or decline response.
@@ -185,17 +186,37 @@ def accept_or_decl(value):
         print("We're looking forward to seeing you on the day.\n")
         no_of_guests()
 
+
+# Based on the Love Sandwiches project and adjusted
 def no_of_guests():
     """
     Request number of adult guests and no of children
-    as a list of integers separated by commas.
+    as a list of strings separated by commas.
     """
     print("Let us know who's coming with you.")
     print("Enter two numbers, first adults, then kids,")
     print("separated by commas.")
     print("Example: 2, 1\n")
     guests_str = input("Enter number of adults and kids here:\n")
-    print(guests_str)
+    guests = guests_str.split(",")
+    validate_no_of_guests(guests)
+    print(guests)
+
+
+def validate_no_of_guests(values):
+    """
+    Converts strings with numbers to integers,
+    raises ValueError if string cannot be converted into a number,
+    if there aren't exactly 2 values, and if the first number is 0.
+    """
+    try:
+        [int(value) for value in values]
+        if len(values) != 2:
+            raise ValueError(
+                f"Two numbers are required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
 
 
 # def add_timestamp(date):
