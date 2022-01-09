@@ -149,7 +149,7 @@ def get_y_n():
             print("Recording your response...\n")
             break
 
-    declined(yes_or_no)
+    accept_or_decl(yes_or_no)
     return yes_or_no
 
 
@@ -170,7 +170,7 @@ def validate_y_n(value):
     
     return True
 
-def declined(value):
+def accept_or_decl(value):
     """
     Checks for decline response and ends the program.
     """
@@ -178,6 +178,11 @@ def declined(value):
         print("We're sorry you can't make it.")
         print("Thank for letting us know.")
         print("We'll save you some cake!")
+    elif value == "Y":
+        print("You said YES!")
+        print("We're looking forward to seeing you on the day.")
+    
+
 
 
 # def add_timestamp(date):
