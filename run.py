@@ -130,6 +130,18 @@ def get_timestamp():
     rsvp_info.append(stamp)
     return stamp
 
+def get_y_n():
+    """
+    Gets Yes or No response from the guest.
+    Y if attending, N if not attending.
+    """
+    print("We really hope to see you there!")
+    y_or_no = input("Are you able to join us? Enter Y (Yes) or N (No)\n").upper()
+    print("Recording your response...\n")
+    print(y_or_no)
+    
+
+
 # def add_timestamp(date):
 #     """
 #     Identify first empty row on main worksheet and add guest email
@@ -145,4 +157,5 @@ submission_date = get_timestamp()
 # add_timestamp(submission_date)
 guest_email = get_guest_info()
 add_guest(rsvp_info)
+get_y_n()
 print(rsvp_info)
