@@ -145,11 +145,11 @@ def get_y_n():
         yes_or_no = input("Enter Y (Yes) or N (No)\n").upper()
         
         if validate_y_n(yes_or_no):
-            print("Thanks for letting us know!")
             rsvp_info.append(yes_or_no)
             print("Recording your response...\n")
             break
 
+    declined(yes_or_no)
     return yes_or_no
 
 
@@ -170,6 +170,15 @@ def validate_y_n(value):
     
     return True
 
+def declined(value):
+    """
+    Checks for decline response and ends the program.
+    """
+    if value == "N":
+        print("We're sorry you can't make it.")
+        print("Thank for letting us know.")
+        print("We'll save you some cake!")
+
 
 # def add_timestamp(date):
 #     """
@@ -188,3 +197,4 @@ guest_email = get_guest_info()
 rsvp_response = get_y_n()
 add_guest(rsvp_info)
 print(rsvp_info)
+print(rsvp_response)
