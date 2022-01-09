@@ -2,19 +2,24 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+# Import re module to validate email address
+
+import re
+
+# To get current time and date
+from datetime import datetime
 # Import dependencies to use Google Sheets API
 
 # To use to access and update data in spreadsheet
 import gspread
 
-# To set up authentication with creds.json to access the project on Google Cloud
+# To set up authentication with creds.json 
+# to access the project on Google Cloud
 from google.oauth2.service_account import Credentials
 
-# Import re module to validate email address
 
-import re
-
-# Used from CI Love Sandwiches walkthrough project to access data on the spreadsheet
+# Used from CI Love Sandwiches walkthrough project 
+# to access data on the spreadsheet
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -67,7 +72,7 @@ def get_guest_info():
     return email_str
 
 
-# From https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/
+# From https://stackabuse.com/
 
 def validate_email(email):
     """
@@ -89,12 +94,22 @@ def add_guest(email):
     """
     Identify first empty row on main worksheet and add guest email
     """
-     print("Adding guest email to main worksheet...\n")
-     main_worksheet = SHEET.worksheet("main")
-     first_empty_row = (len(main_worksheet.get_all_values()) + 1)
-     main_worksheet.update_cell(first_empty_row, 2, email)
-     print("Email added to main worksheet...!")
+    print("Adding guest email to main worksheet...\n")
+    main_worksheet = SHEET.worksheet("main")
+    first_empty_row = (len(main_worksheet.get_all_values()) + 1)
+    main_worksheet.update_cell(first_empty_row, 2, email)
+    print("Email added to main worksheet...!")
+
+def get_timestamp():
+    """
+    Gets current date and time and parses it into the selected format
+    """
+    now = datetime.now()
+    # Format the date and time as dd/mm/YY H:M:S
+    now = now.strftime("%d/%m/%Y %H:%M:%S")
+    return now
 
 
 guest_email = get_guest_info()
 add_guest(guest_email)
+submission_date = get_timestamp()
