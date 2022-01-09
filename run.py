@@ -119,7 +119,7 @@ def add_guest(data):
     # get_timestamp()    
     main_worksheet.append_row(data)
 
-    print("Email and stamp added to main worksheet...!")
+    print("Responses added to main worksheet...!")
 
 
 def get_timestamp():
@@ -172,7 +172,9 @@ def validate_y_n(value):
 
 def accept_or_decl(value):
     """
-    Checks for decline response and ends the program.
+    Checks for accept or decline response.
+    If response is No, this ends the program.
+    If it's Yes, next question is displayed.
     """
     if value == "N":
         print("We're sorry you can't make it.")
@@ -180,9 +182,20 @@ def accept_or_decl(value):
         print("We'll save you some cake!")
     elif value == "Y":
         print("You said YES!")
-        print("We're looking forward to seeing you on the day.")
-    
+        print("We're looking forward to seeing you on the day.\n")
+        no_of_guests()
 
+def no_of_guests():
+    """
+    Request number of adult guests and no of children
+    as a list of integers separated by commas.
+    """
+    print("Let us know who's coming with you.")
+    print("Enter two numbers, first adults, then kids,")
+    print("separated by commas.")
+    print("Example: 2, 1\n")
+    guests_str = input("Enter number of adults and kids here:\n")
+    print(guests_str)
 
 
 # def add_timestamp(date):
