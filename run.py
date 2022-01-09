@@ -105,7 +105,7 @@ def add_guest(data):
 
     # first_empty_row = (len(main_worksheet.get_all_values()) + 1)
     # main_worksheet.update_cell(first_empty_row, 2, email)
-    get_timestamp()    
+    # get_timestamp()    
     main_worksheet.append_row(data)
 
     print("Email and stamp added to main worksheet...!")
@@ -113,6 +113,7 @@ def add_guest(data):
 def get_timestamp():
     """
     Gets current date and time and parses it into the selected format
+    and appends to the rsvp_info list
     """
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
@@ -131,8 +132,8 @@ def get_timestamp():
 #     print("Timestamp added to main worksheet...!")
 
 
-guest_email = get_guest_info()
-add_guest(rsvp_info)
 submission_date = get_timestamp()
 # add_timestamp(submission_date)
+guest_email = get_guest_info()
+add_guest(rsvp_info)
 print(rsvp_info)
