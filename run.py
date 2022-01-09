@@ -68,12 +68,15 @@ def get_guest_info():
     """
     Get email address from the guest
     """
-    print("What's your email address?\n")
-
-    email_str = input("Enter email address:\n").lower()
-    print("Checking your email address...\n")
-    validate_email(email_str)
-    rsvp_info.append(email_str)
+    while True:
+        print("What's your email address?\n")
+        email_str = input("Enter email address:\n").lower()
+        print("Checking your email address...\n")
+        
+        if validate_email(email_str):
+            print("Email is valid")
+            rsvp_info.append(email_str)
+            break
 
     return email_str
 
@@ -82,7 +85,10 @@ def get_guest_info():
 
 def validate_email(email):
     """
-    Using Regular Expression, validates basic syntax of email address
+    Using Regular Expression, validates basic syntax of email address.
+    Inside the try element, raises ValueErrors if the email
+    doesn't match the expected syntax.
+    Returns True if email is valid.
     """
     # Regular expression for validating the email
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -94,6 +100,9 @@ def validate_email(email):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please enter your email address again.\n")
+        return False 
+    
+    return True
 
 
 def add_guest(data):
