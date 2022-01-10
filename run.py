@@ -192,12 +192,12 @@ def no_of_guests():
     """
     Request number of adult guests and no of children
     as a list of strings separated by commas.
-    Appends the numbers to rsvp_info list.
     """
     while True:
         print("Let us know who's coming with you.")
         print("One invitation is for max. 2 adults and 6 kids.")
-        print("Enter two numbers, separated by commas.")
+        print("Enter two numbers, first adults, then kids,")
+        print("separated by commas.")
         print("Example: 2, 1\n")
 
         guests_str = input("Enter number of adults and kids here:\n")
@@ -261,9 +261,19 @@ def validate_adult_att(values):
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-
+    
     return True
 
+def get_diet():
+    """
+    Requests the guest to select dietary requirements.
+    """
+    print("Please let us know what meal you'd prefer.")
+    print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
+    meal_data = input("Enter your choice here: \n")
+    meal_choice_up = meal_data.upper()
+
+    print(f"You selected {meal_choice_up}")
 
 # def add_timestamp(date):
 #     """
@@ -280,6 +290,7 @@ submission_date = get_timestamp()
 # add_timestamp(submission_date)
 guest_email = get_guest_info()
 rsvp_response = get_y_n()
+get_diet()
 add_guest(rsvp_info)
 print(rsvp_info)
 print(rsvp_response)
