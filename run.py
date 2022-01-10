@@ -194,26 +194,59 @@ def no_of_guests():
     as a list of strings separated by commas.
     """
     print("Let us know who's coming with you.")
+    print("One invitation is for max. 2 adults and 6 kids.")
     print("Enter two numbers, first adults, then kids,")
     print("separated by commas.")
     print("Example: 2, 1\n")
     guests_str = input("Enter number of adults and kids here:\n")
     guests = guests_str.split(",")
     validate_no_of_guests(guests)
-    print(guests)
+    validate_adult_att(guests)
+    # print(guests[0])
 
 
 def validate_no_of_guests(values):
     """
     Converts strings with numbers to integers,
     raises ValueError if string cannot be converted into a number,
-    if there aren't exactly 2 values, and if the first number is 0.
+    if there aren't exactly 2 values.
     """
     try:
         [int(value) for value in values]
         if len(values) != 2:
             raise ValueError(
                 f"Two numbers are required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+
+
+def validate_adult_att(values):
+    """
+    Checks that there is at least one adult attending,
+    and no more than two adults per invite,
+    by validating that the first integer in the list 
+    is not == 0 and not > 2. Also check that there is 
+    no more than 4 kids per invitee.
+    """
+    print("Validating number of adults...")
+    guests_int = [int(value) for value in values]
+    adults = guests_int[0]
+    kids = guests_int[1]
+
+    try:
+        [int(value) for value in values]
+        if adults == 0:
+            raise ValueError(
+                f"Looks like {adults} adults are attending"
+            )
+        elif adults > 2:
+            raise ValueError(
+            f"There should be at least 1 adults, you entered {adults}"
+            )
+        elif kids > 6:
+            raise ValueError(
+            f"Only upto 6 kids are allowed, you entered {kids}"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
