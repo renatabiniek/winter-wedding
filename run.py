@@ -192,24 +192,24 @@ def no_of_guests():
     """
     Request number of adult guests and no of children
     as a list of strings separated by commas.
+    Appends the numbers to rsvp_info list.
     """
     while True:
         print("Let us know who's coming with you.")
         print("One invitation is for max. 2 adults and 6 kids.")
-        print("Enter two numbers, first adults, then kids,")
-        print("separated by commas.")
+        print("Enter two numbers, separated by commas.")
         print("Example: 2, 1\n")
 
         guests_str = input("Enter number of adults and kids here:\n")
         guests = guests_str.split(",")
         
-        if validate_no_of_guests(guests):
+        if validate_no_of_guests(guests) and validate_adult_att(guests):
+            for guest in guests:
+                rsvp_info.append(guest)
             print("Correct no of guests")
             break
     
-    return num_of_guests
-    # validate_adult_att(guests)
-
+    return guest
 
 
 def validate_no_of_guests(values):
@@ -252,7 +252,7 @@ def validate_adult_att(values):
             )
         elif adults > 2:
             raise ValueError(
-            f"There should be at least 1 adults, you entered {adults}"
+            f"Only 2 adults per invite, you entered {adults}"
             )
         elif kids > 6:
             raise ValueError(
@@ -260,6 +260,9 @@ def validate_adult_att(values):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
 
 
 # def add_timestamp(date):
