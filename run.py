@@ -317,11 +317,16 @@ def validate_meal_choice(value):
 #     main_worksheet.update_cell(first_empty_row, 1, date)
 #     print("Timestamp added to main worksheet...!")
 
+def main():
+    """
+    Runs all program functions.
+    """
+    submission_date = get_timestamp()
+    # add_timestamp(submission_date)
+    guest_email = get_guest_info()
+    rsvp_response = get_y_n()
+    add_guest(rsvp_info)
+    print(rsvp_info)
+    print(rsvp_response)
 
-submission_date = get_timestamp()
-# add_timestamp(submission_date)
-guest_email = get_guest_info()
-rsvp_response = get_y_n()
-add_guest(rsvp_info)
-print(rsvp_info)
-print(rsvp_response)
+main()
