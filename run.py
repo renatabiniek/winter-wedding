@@ -181,10 +181,12 @@ def accept_or_decl(value):
         print("We're sorry you can't make it.")
         print("Thank for letting us know.")
         print("We'll save you some cake!")
+
     elif value == "Y":
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
         no_of_guests()
+        get_diet()
 
 
 # Based on the Love Sandwiches project and adjusted
@@ -268,7 +270,7 @@ def get_diet():
     """
     Requests the guest to select dietary requirements.
     Repeat request until valid meal option selected.
-    If valid, append the choice to the rsvp_info list.
+    If valid, append the choice to the rsvp_info.
     """
 
     while True:
@@ -320,7 +322,6 @@ submission_date = get_timestamp()
 # add_timestamp(submission_date)
 guest_email = get_guest_info()
 rsvp_response = get_y_n()
-meal_choice = get_diet()
 add_guest(rsvp_info)
 print(rsvp_info)
 print(rsvp_response)
