@@ -267,13 +267,20 @@ def validate_adult_att(values):
 def get_diet():
     """
     Requests the guest to select dietary requirements.
+    Repeat request until valid meal option selected.
+    If valid, append the choice to the rsvp_info list.
     """
-    print("Please let us know what meal you'd prefer.")
-    print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
-    meal_data = input("Enter your choice here: \n")
-    meal_choice_up = meal_data.upper()
 
-    validate_meal_choice(meal_choice_up)
+    while True:
+        print("Please let us know what meal you'd prefer.")
+        print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
+        meal_data = input("Enter your choice here: \n")
+        meal_choice_up = meal_data.upper()
+        
+        if validate_meal_choice(meal_choice_up):
+            print("Meal choice is valid")
+            rsvp_info.append(meal_choice_up)
+            break
 
     print(f"You selected {meal_choice_up}")
     
