@@ -54,7 +54,7 @@ def print_logo():
       |             |
      -"==         =="-
     \n 
-You've been invited to our wedding!\n
+You've been invited to our winter wedding!\n
 Please RSVP here.\n
     ''')
 
@@ -273,7 +273,30 @@ def get_diet():
     meal_data = input("Enter your choice here: \n")
     meal_choice_up = meal_data.upper()
 
+    validate_meal_choice(meal_choice_up)
+
     print(f"You selected {meal_choice_up}")
+    
+    return meal_choice_up
+
+def validate_meal_choice(value):
+    """
+    Checks that the value entered by the user
+    matches the available options.
+    """
+    print("Validating meal choice...")
+    meals = ["V", "VG", "GF", "S"]
+
+    try:
+        if value not in meals:
+            raise ValueError(
+                f"Options are: V, VG, GF or S. You entered {value}"
+                )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+    
+    return True
 
 # def add_timestamp(date):
 #     """
@@ -290,7 +313,7 @@ submission_date = get_timestamp()
 # add_timestamp(submission_date)
 guest_email = get_guest_info()
 rsvp_response = get_y_n()
-get_diet()
+meal_choice = get_diet()
 add_guest(rsvp_info)
 print(rsvp_info)
 print(rsvp_response)
