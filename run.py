@@ -1,20 +1,15 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
 # Import re module to validate email address
-
 import re
 
 # To get current time and date
 from datetime import datetime
-# Import dependencies to use Google Sheets API
 
+# Import dependencies to use Google Sheets API
 # To use to access and update data in spreadsheet
 import gspread
 
 # To set up authentication with creds.json
-# to access the project on Google Cloud
+# and access the project on Google Cloud
 from google.oauth2.service_account import Credentials
 
 
@@ -53,7 +48,7 @@ def print_logo():
       | `))     ((` |
       |             |
      -"==         =="-
-    \n 
+    \n
 You've been invited to our winter wedding!\n
 Please RSVP here.\n
     ''')
@@ -62,7 +57,7 @@ Please RSVP here.\n
 print_logo()
 
 # Empty list to collect responses from terminal and
-# later append to the main worksheet 
+# later append to the main worksheet
 rsvp_info = []
 
 
@@ -73,10 +68,10 @@ def get_guest_info():
     while True:
         print("What's your email address?\n")
         email_str = input("Enter email address:\n").lower()
-        print("Checking your email address...\n")
-        
+        print("Checking your email address...")
+
         if validate_email(email_str):
-            print("Email is valid")
+            print("Email is valid\n")
             rsvp_info.append(email_str)
             break
 
@@ -102,8 +97,8 @@ def validate_email(email):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please enter your email address again.\n")
-        return False 
-    
+        return False
+
     return True
 
 
@@ -111,12 +106,12 @@ def add_guest(data):
     """
     Identify first empty row on main worksheet and add guest email
     """
-    print("Adding guest email and timestamp to main worksheet...\n")
+    print("Adding responses to main worksheet...\n")
     main_worksheet = SHEET.worksheet("main")
 
     # first_empty_row = (len(main_worksheet.get_all_values()) + 1)
     # main_worksheet.update_cell(first_empty_row, 2, email)
-    # get_timestamp()    
+    # get_timestamp()
     main_worksheet.append_row(data)
 
     print("Responses added to main worksheet...!")
@@ -143,10 +138,10 @@ def get_y_n():
         print("We really hope to see you there!")
         print("Are you able to join us?")
         yes_or_no = input("Enter Y (Yes) or N (No)\n").upper()
-        
+
         if validate_y_n(yes_or_no):
             rsvp_info.append(yes_or_no)
-            print("Recording your response...\n")
+            print("Checking your response...\n")
             break
 
     accept_or_decl(yes_or_no)
@@ -160,14 +155,14 @@ def validate_y_n(value):
     """
     responses = ["Y", "N"]
     try:
-        if not value in responses:
+        if value not in responses:
             raise ValueError(
                 f"You responded {value}. This seems incorrect"
             )
     except ValueError as e:
         print(f"Invalid value: {e}, please enter Y or N.\n")
-        return False 
-    
+        return False
+
     return True
 
 
@@ -204,13 +199,13 @@ def no_of_guests():
 
         guests_str = input("Enter number of adults and kids here:\n")
         guests = guests_str.split(",")
-        
+
         if validate_no_of_guests(guests) and validate_adult_att(guests):
             for guest in guests:
                 rsvp_info.append(guest)
-            print("Correct no of guests")
+            print("Number of guests is correct.\n")
             break
-    
+
     return guest
 
 
@@ -229,7 +224,7 @@ def validate_no_of_guests(values):
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-    
+
     return True
 
 
@@ -237,11 +232,11 @@ def validate_adult_att(values):
     """
     Checks that there is at least one adult attending,
     and no more than two adults per invite,
-    by validating that the first integer in the list 
-    is not == 0 and not > 2. Also check that there is 
+    by validating that the first integer in the list
+    is not == 0 and not > 2. Also check that there is
     no more than 4 kids per invitee.
     """
-    print("Validating number of adults...")
+    print("Validating number of guests...")
     guests_int = [int(value) for value in values]
     adults = guests_int[0]
     kids = guests_int[1]
@@ -254,17 +249,18 @@ def validate_adult_att(values):
             )
         elif adults > 2:
             raise ValueError(
-            f"Only 2 adults per invite, you entered {adults}"
+                f"Only 2 adults per invite, you entered {adults}"
             )
         elif kids > 6:
             raise ValueError(
-            f"Only upto 6 kids are allowed, you entered {kids}"
+                f"Only upto 6 kids are allowed, you entered {kids}"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-    
+
     return True
+
 
 def get_diet():
     """
@@ -278,15 +274,16 @@ def get_diet():
         print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
-        
+   
         if validate_meal_choice(meal_choice_up):
             print("Meal choice is valid")
             rsvp_info.append(meal_choice_up)
             break
 
     print(f"You selected {meal_choice_up}")
-    
+
     return meal_choice_up
+
 
 def validate_meal_choice(value):
     """
@@ -304,7 +301,7 @@ def validate_meal_choice(value):
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-    
+
     return True
 
 # def add_timestamp(date):
@@ -317,6 +314,7 @@ def validate_meal_choice(value):
 #     main_worksheet.update_cell(first_empty_row, 1, date)
 #     print("Timestamp added to main worksheet...!")
 
+
 def main():
     """
     Runs all program functions.
@@ -327,6 +325,6 @@ def main():
     rsvp_response = get_y_n()
     add_guest(rsvp_info)
     print(rsvp_info)
-    print(rsvp_response)
+
 
 main()
