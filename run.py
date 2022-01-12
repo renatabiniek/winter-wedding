@@ -137,7 +137,7 @@ def get_y_n():
     while True:
         print("We really hope to see you there!")
         print("Are you able to join us?")
-        yes_or_no = input("Enter Y (Yes) or N (No)\n").upper()
+        yes_or_no = input("Enter Y (Yes) or N (No):\n").upper()
 
         if validate_y_n(yes_or_no):
             rsvp_info.append(yes_or_no)
