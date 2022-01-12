@@ -65,6 +65,7 @@ def get_guest_info():
     """
     Get email address from the guest
     """
+    email_str = None
     while True:
         print("What's your email address?\n")
         email_str = input("Enter email address:\n").lower()
@@ -72,7 +73,7 @@ def get_guest_info():
 
         if validate_email(email_str):
             print("Email is valid\n")
-            rsvp_info.append(email_str)
+            # rsvp_info.append(email_str)
             break
 
     return email_str
@@ -91,12 +92,12 @@ def validate_email(email):
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
     try:
-        if (not re.fullmatch(regex, email)):
+        if not re.fullmatch(regex, email):
             raise ValueError(
                 f"Email {email} seems incorrect"
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please enter your email address again.\n")
+    except ValueError as error:
+        print(f"Invalid data: {error}, please enter your email address again.\n")
         return False
 
     return True
@@ -104,7 +105,8 @@ def validate_email(email):
 
 def add_guest(data):
     """
-    Identify first empty row on main worksheet and add guest email
+    Append new row with collected
+    responses.
     """
     print("Adding responses to main worksheet...\n")
     main_worksheet = SHEET.worksheet("main")
@@ -129,7 +131,7 @@ def get_timestamp():
     return stamp
 
 
-def get_y_n():
+def get_response():
     """
     Gets Yes or No response from the guest.
     Y if attending, N if not attending.
@@ -137,36 +139,29 @@ def get_y_n():
     while True:
         print("We really hope to see you there!")
         print("Are you able to join us?")
-        yes_or_no = input("Enter Y (Yes) or N (No):\n").upper()
+        guest_response = input("Enter Y (Yes) or N (No):\n").upper()
 
-        if validate_y_n(yes_or_no):
-            rsvp_info.append(yes_or_no)
+        if validate_response(guest_response):
+            rsvp_info.append(guest_response)
             print("Checking your response...\n")
             break
 
-    accept_or_decl(yes_or_no)
-    return yes_or_no
+    handle_accept_or_decl(guest_response)
+    return guest_response
 
 
-def validate_y_n(value):
+def validate_response(value):
     """
     Checks that the response is Y or N,
     returns True if valid response.
     """
-    responses = ["Y", "N"]
-    try:
-        if value not in responses:
-            raise ValueError(
-                f"You responded {value}. This seems incorrect"
-            )
-    except ValueError as e:
-        print(f"Invalid value: {e}, please enter Y or N.\n")
+    if value not in ["Y", "N"]:
         return False
 
     return True
 
 
-def accept_or_decl(value):
+def handle_accept_or_decl(value):
     """
     Checks for accept or decline response.
     If response is No, this ends the program.
@@ -184,7 +179,6 @@ def accept_or_decl(value):
         get_diet()
 
 
-# Based on the Love Sandwiches project and adjusted
 def no_of_guests():
     """
     Request number of adult guests and no of children
@@ -206,7 +200,7 @@ def no_of_guests():
             print("Number of guests is correct.\n")
             break
 
-    return guest
+    return guests
 
 
 def validate_no_of_guests(values):
@@ -237,12 +231,12 @@ def validate_adult_att(values):
     no more than 4 kids per invitee.
     """
     print("Validating number of guests...")
-    guests_int = [int(value) for value in values]
-    adults = guests_int[0]
-    kids = guests_int[1]
 
     try:
-        [int(value) for value in values]
+        guests_int = [int(value) for value in values]
+        adults = guests_int[0]
+        kids = guests_int[1]
+        
         if adults == 0:
             raise ValueError(
                 f"Looks like {adults} adults are attending"
@@ -304,25 +298,15 @@ def validate_meal_choice(value):
 
     return True
 
-# def add_timestamp(date):
-#     """
-#     Identify first empty row on main worksheet and add guest email
-#     """
-#     print("Adding date of submission to main worksheet...\n")
-#     main_worksheet = SHEET.worksheet("main")
-#     first_empty_row = (len(main_worksheet.get_all_values()) + 1)
-#     main_worksheet.update_cell(first_empty_row, 1, date)
-#     print("Timestamp added to main worksheet...!")
-
 
 def main():
     """
     Runs all program functions.
     """
     submission_date = get_timestamp()
-    # add_timestamp(submission_date)
     guest_email = get_guest_info()
-    rsvp_response = get_y_n()
+    rsvp_info.append(guest_email)
+    rsvp_response = get_response()
     add_guest(rsvp_info)
     print(rsvp_info)
 
