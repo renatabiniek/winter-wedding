@@ -208,26 +208,26 @@ def validate_no_of_guests(values):
     raises ValueError if string cannot be converted into a number,
     if there aren't exactly 2 values.
     """
-    # try:
-    #     [int(value) for value in values]
-    #     if len(values) != 2:
-    #         raise ValueError(
-    #             f"Two numbers are required, you provided {len(values)}"
-    #         )
-    # except ValueError as error:
-    #     print(f"Invalid data: {error}, please try again.\n")
-    #     return False
-
-    # return True
-
-    numb_of_guests = [int(value) for value in values]
-
-    if len(numb_of_guests) != 2:
-        print(f"Two numbers are required, you provided {len(numb_of_guests)}.")
-        print("Please try again.\n")
+    try:
+        [int(value) for value in values]
+        if len(values) != 2:
+            raise ValueError(
+                f"Two numbers are required, you provided {len(values)}"
+            )
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
         return False
 
     return True
+
+    # numb_of_guests = [int(value) for value in values]
+
+    # if len(numb_of_guests) != 2:
+    #     print(f"Two numbers are required, you provided {len(numb_of_guests)}.")
+    #     print("Please try again.\n")
+    #     return False
+
+    # return True
 
 
 def validate_adult_att(values):
@@ -240,46 +240,46 @@ def validate_adult_att(values):
     """
     print("Validating number of guests...")
 
-    # try:
-    #     guests_int = [int(value) for value in values]
-    #     adults = guests_int[0]
-    #     kids = guests_int[1]
-       
-    #     if adults == 0:
-    #         raise ValueError(
-    #             f"Looks like {adults} adults are attending"
-    #         )
-    #     elif adults > 2:
-    #         raise ValueError(
-    #             f"Only 2 adults per invite, you entered {adults}"
-    #         )
-    #     elif kids > 6:
-    #         raise ValueError(
-    #             f"Only upto 6 kids are allowed, you entered {kids}"
-    #         )
-    # except ValueError as error:
-    #     print(f"Invalid data: {error}, please try again.\n")
-    #     return False
+    try:
+        guests_int = [int(value) for value in values]
+        adults = guests_int[0]
+        kids = guests_int[1]
+    
+        if adults == 0:
+            raise ValueError(
+                f"Looks like {adults} adults are attending"
+            )
+        elif adults > 2:
+            raise ValueError(
+                f"Only 2 adults per invite, you entered {adults}"
+            )
+        elif kids > 6:
+            raise ValueError(
+                f"Only upto 6 kids are allowed, you entered {kids}"
+            )
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
+        return False
 
-    guests_int = [int(value) for value in values]
-    adults = guests_int[0]
-    kids = guests_int[1]
+    # guests_int = [int(value) for value in values]
+    # adults = guests_int[0]
+    # kids = guests_int[1]
    
-    if adults == 0:
-        print("Something went wrong.")
-        print(f"Looks like {adults} adults are attending.")
-        print("Please try again.\n")
-        return False
-    elif adults > 2:
-        print("Something went wrong.")
-        print(f"Only 2 adults per invite, you entered {adults}.")
-        print("Please try again.\n")
-        return False
-    elif kids > 6:
-        print("Something went wrong.")
-        print(f"Only upto 6 kids are allowed, you entered {kids}.")
-        print("Please try again.\n")
-        return False
+    # if adults == 0:
+    #     print("Something went wrong.")
+    #     print(f"Looks like {adults} adults are attending.")
+    #     print("Please try again.\n")
+    #     return False
+    # elif adults > 2:
+    #     print("Something went wrong.")
+    #     print(f"Only 2 adults per invite, you entered {adults}.")
+    #     print("Please try again.\n")
+    #     return False
+    # elif kids > 6:
+    #     print("Something went wrong.")
+    #     print(f"Only upto 6 kids are allowed, you entered {kids}.")
+    #     print("Please try again.\n")
+    #     return False
     
     return True
 
@@ -296,7 +296,7 @@ def get_diet():
         print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
-   
+        
         if validate_meal_choice(meal_choice_up):
             rsvp_info.append(meal_choice_up)
             break
