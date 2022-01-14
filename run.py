@@ -298,7 +298,6 @@ def get_diet():
         meal_choice_up = meal_data.upper()
    
         if validate_meal_choice(meal_choice_up):
-            print("Meal choice is valid")
             rsvp_info.append(meal_choice_up)
             break
 
@@ -313,15 +312,10 @@ def validate_meal_choice(value):
     matches the available options.
     """
     print("Validating meal choice...")
-    meals = ["V", "VG", "GF", "S"]
 
-    try:
-        if value not in meals:
-            raise ValueError(
-                f"Options are: V, VG, GF or S. You entered {value}"
-                )
-    except ValueError as error:
-        print(f"Invalid data: {error}, please try again.\n")
+    if value not in ["V", "VG", "GF", "S"]:
+        print(f"Options are: V, VG, GF or S. You entered {value}")
+        print("Please try again.\n")
         return False
 
     return True
