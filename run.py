@@ -126,7 +126,7 @@ def get_timestamp():
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
     stamp = now.strftime("%d/%m/%Y %H:%M:%S")
-    # rsvp_info.append(stamp)
+
     return stamp
 
 
@@ -174,11 +174,11 @@ def handle_accept_or_decl(value):
     elif value == "Y":
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
-        no_of_guests()
+        get_number_of_guests()
         get_diet()
 
 
-def no_of_guests():
+def get_number_of_guests():
     """
     Request number of adult guests and no of children
     as a list of strings separated by commas.
@@ -208,14 +208,23 @@ def validate_no_of_guests(values):
     raises ValueError if string cannot be converted into a number,
     if there aren't exactly 2 values.
     """
-    try:
-        [int(value) for value in values]
-        if len(values) != 2:
-            raise ValueError(
-                f"Two numbers are required, you provided {len(values)}"
-            )
-    except ValueError as error:
-        print(f"Invalid data: {error}, please try again.\n")
+    # try:
+    #     [int(value) for value in values]
+    #     if len(values) != 2:
+    #         raise ValueError(
+    #             f"Two numbers are required, you provided {len(values)}"
+    #         )
+    # except ValueError as error:
+    #     print(f"Invalid data: {error}, please try again.\n")
+    #     return False
+
+    # return True
+
+    numb_of_guests = [int(value) for value in values]
+
+    if len(numb_of_guests) != 2:
+        print(f"Two numbers are required, you provided {len(numb_of_guests)}.")
+        print("Please try again.\n")
         return False
 
     return True
@@ -227,31 +236,51 @@ def validate_adult_att(values):
     and no more than two adults per invite,
     by validating that the first integer in the list
     is not == 0 and not > 2. Also check that there is
-    no more than 4 kids per invitee.
+    no more than 6 kids per invitee.
     """
     print("Validating number of guests...")
 
-    try:
-        guests_int = [int(value) for value in values]
-        adults = guests_int[0]
-        kids = guests_int[1]
-        
-        if adults == 0:
-            raise ValueError(
-                f"Looks like {adults} adults are attending"
-            )
-        elif adults > 2:
-            raise ValueError(
-                f"Only 2 adults per invite, you entered {adults}"
-            )
-        elif kids > 6:
-            raise ValueError(
-                f"Only upto 6 kids are allowed, you entered {kids}"
-            )
-    except ValueError as error:
-        print(f"Invalid data: {error}, please try again.\n")
-        return False
+    # try:
+    #     guests_int = [int(value) for value in values]
+    #     adults = guests_int[0]
+    #     kids = guests_int[1]
+       
+    #     if adults == 0:
+    #         raise ValueError(
+    #             f"Looks like {adults} adults are attending"
+    #         )
+    #     elif adults > 2:
+    #         raise ValueError(
+    #             f"Only 2 adults per invite, you entered {adults}"
+    #         )
+    #     elif kids > 6:
+    #         raise ValueError(
+    #             f"Only upto 6 kids are allowed, you entered {kids}"
+    #         )
+    # except ValueError as error:
+    #     print(f"Invalid data: {error}, please try again.\n")
+    #     return False
 
+    guests_int = [int(value) for value in values]
+    adults = guests_int[0]
+    kids = guests_int[1]
+   
+    if adults == 0:
+        print("Something went wrong.")
+        print(f"Looks like {adults} adults are attending.")
+        print("Please try again.\n")
+        return False
+    elif adults > 2:
+        print("Something went wrong.")
+        print(f"Only 2 adults per invite, you entered {adults}.")
+        print("Please try again.\n")
+        return False
+    elif kids > 6:
+        print("Something went wrong.")
+        print(f"Only upto 6 kids are allowed, you entered {kids}.")
+        print("Please try again.\n")
+        return False
+    
     return True
 
 
