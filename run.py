@@ -49,8 +49,8 @@ def print_logo():
       |             |
      -"==         =="-
     \n
-You've been invited to our winter wedding!\n
-Please RSVP here.\n
+You've been invited to our winter wedding!
+Please RSVP here.
     ''')
 
 
@@ -67,7 +67,7 @@ def get_guest_info():
     """
     email_str = None
     while True:
-        print("What's your email address?\n")
+        print("What's your email address?")
         email_str = input("Enter email address:\n").lower()
         print("Checking your email address...")
 
@@ -113,7 +113,6 @@ def add_guest(data):
 
     # first_empty_row = (len(main_worksheet.get_all_values()) + 1)
     # main_worksheet.update_cell(first_empty_row, 2, email)
-    # get_timestamp()
     main_worksheet.append_row(data)
 
     print("Responses added to main worksheet...!")
@@ -127,7 +126,7 @@ def get_timestamp():
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
     stamp = now.strftime("%d/%m/%Y %H:%M:%S")
-    rsvp_info.append(stamp)
+    # rsvp_info.append(stamp)
     return stamp
 
 
@@ -215,8 +214,8 @@ def validate_no_of_guests(values):
             raise ValueError(
                 f"Two numbers are required, you provided {len(values)}"
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
         return False
 
     return True
@@ -249,8 +248,8 @@ def validate_adult_att(values):
             raise ValueError(
                 f"Only upto 6 kids are allowed, you entered {kids}"
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
         return False
 
     return True
@@ -292,8 +291,8 @@ def validate_meal_choice(value):
             raise ValueError(
                 f"Options are: V, VG, GF or S. You entered {value}"
                 )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
         return False
 
     return True
@@ -304,6 +303,7 @@ def main():
     Runs all program functions.
     """
     submission_date = get_timestamp()
+    rsvp_info.append(submission_date)
     guest_email = get_guest_info()
     rsvp_info.append(guest_email)
     rsvp_response = get_response()
