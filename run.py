@@ -89,7 +89,9 @@ def validate_email(email):
     Returns True if email is valid.
     """
     # Regular expression for validating the email
-    regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+    regex = re.compile(
+        r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]'
+        r'+(\.[A-Z|a-z]{2,})+')
 
     try:
         if not re.fullmatch(regex, email):
@@ -97,7 +99,7 @@ def validate_email(email):
                 f"Email {email} seems incorrect"
             )
     except ValueError as error:
-        print(f"Invalid data: {error}, please enter your email address again.\n")
+        print(f"Invalid data: {error}, please enter your email again.\n")
         return False
 
     return True
