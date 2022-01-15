@@ -394,20 +394,43 @@ def confirm_rsvp():
 
 # Functions calculating totals start here
 
+
 def increment_rsvp_count():
     """
     Converts string into integer and increments total number
     of reponses received in RSVP column
     on totals worksheet by 1;
-    increments total of Yes or No responses in
-    Yes and No columns.
     """
     rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
     print(rsvp_total_cell)
     rsvp_total_cell += 1
     print(rsvp_total_cell)
+    update_selected_cell(2, 2, rsvp_total_cell)
 
     return rsvp_total_cell
+
+
+def increment_accept_or_decl(value):
+    """
+    Increments total of Yes or No responses in
+    Yes and No columns, and updates them
+    on the totals worksheet.
+    """
+    if value == "Y":
+        yes_responses_cell = int(SHEET.worksheet("totals").acell('C2').value)
+        print(yes_responses_cell)
+        yes_responses_cell += 1
+        print(yes_responses_cell)
+        update_selected_cell(2, 3, yes_responses_cell)
+        return yes_responses_cell
+    elif value == "N":
+        no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
+        print(no_responses_cell)
+        no_responses_cell += 1
+        print(no_responses_cell)
+        update_selected_cell(2, 4, no_responses_cell)
+        return no_responses_cell
+
 
 def update_selected_cell(row, column, value):
     """
@@ -416,6 +439,7 @@ def update_selected_cell(row, column, value):
     with passed in value
     """
     SHEET.worksheet("totals").update_cell(row, column, value)
+
 
 def main():
     """
@@ -432,10 +456,10 @@ def main():
         submission_date = get_timestamp()
         rsvp_info.append(submission_date)
         rsvp_info.append(guest_email)
-        get_response()
+        rsvp_response = get_response()
         add_guest(rsvp_info)
-        rsvp_total = increment_rsvp_count()
-        update_selected_cell(2, 2, rsvp_total)
+        increment_rsvp_count()
+        increment_accept_or_decl(rsvp_response)
         confirm_rsvp()
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
