@@ -323,6 +323,18 @@ def validate_meal_choice(value):
     return True
 
 
+def is_returning_guest(email):
+    """Checks if email already exists
+    in the email column on the main spreadsheet and
+    prints a message to the guest to RSVP had already been recorded"""
+
+    guest_list = SHEET.worksheet("main").col_values(2)
+
+    if email in guest_list:
+        print("Welcome back! We already have your RSVP.")
+        return True
+
+
 def main():
     """
     Runs all program functions.
@@ -331,6 +343,7 @@ def main():
     rsvp_info.append(submission_date)
     guest_email = get_guest_info()
     rsvp_info.append(guest_email)
+    is_returning_guest(guest_email)
     rsvp_response = get_response()
     add_guest(rsvp_info)
     print(rsvp_info)
