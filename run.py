@@ -432,6 +432,23 @@ def increment_accept_or_decl(value):
         return no_responses_cell
 
 
+def calculate_total_kids():
+    """
+    Gets all values from column Children on main worksheet
+    and ignores any empty cells. Converts values to integers.
+    Adds all values using sum().
+    """
+    # https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python
+
+    kids = [item for item in SHEET.worksheet("main").col_values(5) if item]
+    kids_values = kids[1:]
+    kids_int = [int(kid) for kid in kids_values]
+    sum_kids = sum(kids_int)
+    print(sum_kids)
+
+    return sum_kids
+
+
 def update_selected_cell(row, column, value):
     """
     Updates specific cell on totals worksheet
@@ -460,6 +477,7 @@ def main():
         add_guest(rsvp_info)
         increment_rsvp_count()
         increment_accept_or_decl(rsvp_response)
+        calculate_total_kids()
         confirm_rsvp()
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
@@ -468,4 +486,3 @@ def main():
 
 
 main()
-
