@@ -366,6 +366,15 @@ def return_response_details(value):
 
     return rsvp_dictionary
 
+def print_rsvp_details(dictionary):
+    """
+    Print details of the rsvp dictionary
+    in a more readable format back to the guest
+    """
+
+    for response in dictionary:
+        print(response + ": " + dictionary[response])
+
 
 def main():
     """
@@ -378,9 +387,9 @@ def main():
     is_returning_guest(guest_email)
     rsvp_row_number = find_a_row(guest_email)
     rsvp_summary = return_response_details(rsvp_row_number)
+    print_rsvp = print_rsvp_details(rsvp_summary)
     rsvp_response = get_response()
     add_guest(rsvp_info)
     print(rsvp_info)
-
 
 main()
