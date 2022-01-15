@@ -170,7 +170,7 @@ def handle_accept_or_decl(value):
     """
     if value == "N":
         print("We're sorry you can't make it.")
-        print("But don't worry,")
+        print("But don't worry... ")
         print("we'll save you some cake!")
 
     elif value == "Y":
@@ -392,6 +392,30 @@ def confirm_rsvp():
     print("Thank you for letting us know!")
     print("We recorded your RSVP as follows:")
 
+# Functions calculating totals start here
+
+def increment_rsvp_count():
+    """
+    Converts string into integer and increments total number
+    of reponses received in RSVP column
+    on totals worksheet by 1;
+    increments total of Yes or No responses in
+    Yes and No columns.
+    """
+    rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
+    print(rsvp_total_cell)
+    rsvp_total_cell += 1
+    print(rsvp_total_cell)
+
+    return rsvp_total_cell
+
+def update_selected_cell(row, column, value):
+    """
+    Updates specific cell on totals worksheet
+    in a specified row and column,
+    with passed in value
+    """
+    SHEET.worksheet("totals").update_cell(row, column, value)
 
 def main():
     """
@@ -408,8 +432,10 @@ def main():
         submission_date = get_timestamp()
         rsvp_info.append(submission_date)
         rsvp_info.append(guest_email)
-        rsvp_response = get_response()
+        get_response()
         add_guest(rsvp_info)
+        rsvp_total = increment_rsvp_count()
+        update_selected_cell(2, 2, rsvp_total)
         confirm_rsvp()
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
@@ -418,3 +444,4 @@ def main():
 
 
 main()
+
