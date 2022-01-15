@@ -436,7 +436,8 @@ def calculate_total_kids():
     """
     Gets all values from column Children on main worksheet
     and ignores any empty cells. Converts values to integers.
-    Adds all values using sum().
+    Adds all values using sum() and inserts it in the
+    specified cell on total worksheet.
     """
     # https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python
 
@@ -445,7 +446,7 @@ def calculate_total_kids():
     kids_int = [int(kid) for kid in kids_values]
     sum_kids = sum(kids_int)
     print(sum_kids)
-
+    update_selected_cell(2, 5, sum_kids)
     return sum_kids
 
 
