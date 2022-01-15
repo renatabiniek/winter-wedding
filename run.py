@@ -358,13 +358,13 @@ def return_response_details(value):
     print(rsvp_row)
 
     # code from https://thispointer.com/python-how-to-convert-a-list-to-dictionary/
+    # adjusted to suit my needs
 
     zip_rsvp = zip(header_row, rsvp_row)
     rsvp_dictionary = dict(zip_rsvp)
 
-    print(rsvp_dictionary)
-
     return rsvp_dictionary
+
 
 def print_rsvp_details(dictionary):
     """
@@ -376,20 +376,33 @@ def print_rsvp_details(dictionary):
         print(response + ": " + dictionary[response])
 
 
+def end_program():
+    """
+    Prints end message and exits the program
+    """
+    print("--------------------------------")
+    print("THANK YOU FOR USING THIS PROGRAM")
+
+
 def main():
     """
     Runs all program functions.
     """
-    submission_date = get_timestamp()
-    rsvp_info.append(submission_date)
     guest_email = get_guest_info()
-    rsvp_info.append(guest_email)
-    is_returning_guest(guest_email)
-    rsvp_row_number = find_a_row(guest_email)
-    rsvp_summary = return_response_details(rsvp_row_number)
-    print_rsvp = print_rsvp_details(rsvp_summary)
-    rsvp_response = get_response()
-    add_guest(rsvp_info)
-    print(rsvp_info)
+
+    if is_returning_guest(guest_email):
+        rsvp_row_number = find_a_row(guest_email)
+        rsvp_summary = return_response_details(rsvp_row_number)
+        print_rsvp_details(rsvp_summary)
+        end_program()
+    else:
+        submission_date = get_timestamp()
+        rsvp_info.append(submission_date) 
+        rsvp_info.append(guest_email)
+        rsvp_response = get_response()
+        add_guest(rsvp_info)
+        print(rsvp_info)
+        end_program()
+
 
 main()
