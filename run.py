@@ -120,7 +120,6 @@ def add_guest(data):
     print("Responses added to main worksheet...!")
 
 
-
 def get_timestamp():
     """
     Gets current date and time and parses it into the selected format
@@ -226,7 +225,8 @@ def validate_no_of_guests(values):
     # numb_of_guests = [int(value) for value in values]
 
     # if len(numb_of_guests) != 2:
-    #     print(f"Two numbers are required, you provided {len(numb_of_guests)}.")
+    #     print(f"Two numbers are required,
+    #     you provided {len(numb_of_guests)}.")
     #     print("Please try again.\n")
     #     return False
 
@@ -247,7 +247,6 @@ def validate_adult_att(values):
         guests_int = [int(value) for value in values]
         adults = guests_int[0]
         kids = guests_int[1]
-    
         if adults == 0:
             raise ValueError(
                 f"Looks like {adults} adults are attending"
@@ -267,7 +266,6 @@ def validate_adult_att(values):
     # guests_int = [int(value) for value in values]
     # adults = guests_int[0]
     # kids = guests_int[1]
-   
     # if adults == 0:
     #     print("Something went wrong.")
     #     print(f"Looks like {adults} adults are attending.")
@@ -283,7 +281,6 @@ def validate_adult_att(values):
     #     print(f"Only upto 6 kids are allowed, you entered {kids}.")
     #     print("Please try again.\n")
     #     return False
-    
     return True
 
 
@@ -299,7 +296,6 @@ def get_diet():
         print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
-        
         if validate_meal_choice(meal_choice_up):
             rsvp_info.append(meal_choice_up)
             break
@@ -358,7 +354,8 @@ def return_response_details(value):
     rsvp_row = SHEET.worksheet("main").row_values(value)
     print(rsvp_row)
 
-    # code from https://thispointer.com/python-how-to-convert-a-list-to-dictionary/
+    # code from
+    # https://thispointer.com/python-how-to-convert-a-list-to-dictionary/
     # adjusted to suit my needs
 
     zip_rsvp = zip(header_row, rsvp_row)
@@ -382,7 +379,9 @@ def end_program():
     Prints end message and exits the program
     """
     print("--------------------------------")
-    print("THANK YOU FOR USING THIS PROGRAM")
+    print("THANK YOU FOR USING THIS PROGRAM\n")
+    print("Click Run Program to run it again.")
+
 
 def confirm_rsvp():
     """
