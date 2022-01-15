@@ -334,6 +334,27 @@ def is_returning_guest(email):
         print("Welcome back! We already have your RSVP.")
         return True
 
+def find_a_row(value):
+    """
+    Finds a row with matching email string
+    and return row number
+    """
+    row_with_guest = SHEET.worksheet("main").find(value)
+    print(row_with_guest.row)
+
+    return row_with_guest.row
+
+
+def return_response_details(value):
+    """
+    Reads values in header row and
+    values in the row with the specific email address
+    """
+    header_row = SHEET.worksheet("main").row_values(1)
+    print(header_row)
+    rsvp_row = SHEET.worksheet("main").row_values(value)
+    print(rsvp_row)
+
 
 def main():
     """
@@ -344,6 +365,8 @@ def main():
     guest_email = get_guest_info()
     rsvp_info.append(guest_email)
     is_returning_guest(guest_email)
+    rsvp_row_number = find_a_row(guest_email)
+    return_response_details(rsvp_row_number)
     rsvp_response = get_response()
     add_guest(rsvp_info)
     print(rsvp_info)
