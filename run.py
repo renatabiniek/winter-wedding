@@ -120,6 +120,7 @@ def add_guest(data):
     print("Responses added to main worksheet...!")
 
 
+
 def get_timestamp():
     """
     Gets current date and time and parses it into the selected format
@@ -170,8 +171,8 @@ def handle_accept_or_decl(value):
     """
     if value == "N":
         print("We're sorry you can't make it.")
-        print("Thank for letting us know.")
-        print("We'll save you some cake!")
+        print("But don't worry,")
+        print("we'll save you some cake!")
 
     elif value == "Y":
         print("You said YES!")
@@ -383,6 +384,15 @@ def end_program():
     print("--------------------------------")
     print("THANK YOU FOR USING THIS PROGRAM")
 
+def confirm_rsvp():
+    """
+    Prints message to guest to confirm
+    RSVP has been recorded and prints summary
+    of their responses in terminal.
+    """
+    print("Thank you for letting us know!")
+    print("We recorded your RSVP as follows:")
+
 
 def main():
     """
@@ -397,11 +407,14 @@ def main():
         end_program()
     else:
         submission_date = get_timestamp()
-        rsvp_info.append(submission_date) 
+        rsvp_info.append(submission_date)
         rsvp_info.append(guest_email)
         rsvp_response = get_response()
         add_guest(rsvp_info)
-        print(rsvp_info)
+        confirm_rsvp()
+        rsvp_row_number = find_a_row(guest_email)
+        rsvp_summary = return_response_details(rsvp_row_number)
+        print_rsvp_details(rsvp_summary)
         end_program()
 
 
