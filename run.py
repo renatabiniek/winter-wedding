@@ -496,6 +496,8 @@ def calculate_percentage(value):
     percentage = str(round(calc_percentage, 2)) + "%"
 
     print(percentage)
+    
+    update_selected_cell(2, 10, percentage)
     return percentage
 
 
