@@ -433,7 +433,7 @@ def increment_accept_or_decl(value):
         return no_responses_cell
 
 
-def calculate_total_kids():
+def count_kids():
     """
     Gets all values from column Children on main worksheet
     and ignores any empty cells. Converts values to integers.
@@ -494,9 +494,7 @@ def calculate_percentage(value):
     calc_percentage = float(value)/float(whole) * 100
     print(value)
     percentage = str(round(calc_percentage, 2)) + "%"
-
     print(percentage)
-    
     update_selected_cell(2, 10, percentage)
     return percentage
 
@@ -509,13 +507,33 @@ def update_selected_cell(row, column, value):
     """
     SHEET.worksheet("totals").update_cell(row, column, value)
 
+# Admin message with summary of all RSVPs
+
+def get_admin_overview():
+    """
+    Reads values from totals worksheet
+    and creates a dictionary from those 2 lists
+    """
+    print("Getting admin overview")
+
+    header_row = SHEET.worksheet("totals").row_values(1)
+    print(header_row)
+    rsvp_row = SHEET.worksheet("totals").row_values(2)
+    print(rsvp_row)
+
+    zip_rsvp = zip(header_row, rsvp_row)
+    admin_dictionary = dict(zip_rsvp)
+    print(f"This is {admin_dictionary}")
+
+    return admin_dictionary
 
 def main():
     """
     Runs all program functions.
     """
     guest_email = get_guest_info()
-
+    # If email already on the worksheet, confirm
+    # RSVP recorded and end program
     if is_returning_guest(guest_email):
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
@@ -526,13 +544,13 @@ def main():
         rsvp_info.append(submission_date)
         rsvp_info.append(guest_email)
         rsvp_response = get_response()
-        
+        # Only if guest responded Yes on RSVP, present options to select meals
         if rsvp_response == "Y":
             meal_selected = get_diet()
             increment_meal_choice(meal_selected)
  
         add_guest(rsvp_info)
-        calculate_total_kids()
+        count_kids()
         rsvp_total = increment_rsvp_count()
         calculate_percentage(rsvp_total)
         increment_accept_or_decl(rsvp_response)
@@ -540,6 +558,8 @@ def main():
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
         print_rsvp_details(rsvp_summary)
+        admin_summary = get_admin_overview()
+        print_rsvp_details(admin_summary)
         end_program()
 
 
