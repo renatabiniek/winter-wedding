@@ -46,6 +46,11 @@
 ## Introduction
 ---
 
+Winter Wedding RSVP tool is a terminal based application that allows users to RSVP to a wedding invite they had received.
+It works with Google Sheets to record and retrieve individual responses, as well as to calculate totals and return them to the admin of the application.
+The data can then be used for further planning linked to the event.
+
+
 ## User Experience (UX)
 ---
 ### Project goals
@@ -89,7 +94,7 @@ Flowchart
 
 ### Languages
 
-* [Python](https://en.wikipedia.org/wiki/Python_(programming_language)
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 ### Frameworks, libraries and programs used
 
@@ -159,3 +164,6 @@ You can also refer to this [GitHub documentation](https://docs.github.com/en/git
 ### Acknowledgments
 
 ### Disclaimer
+
+This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project3.
+The requirements are to build a command-line application that allows your users to manage a common dataset.
