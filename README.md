@@ -1,31 +1,44 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Table of Contents 
 
-Welcome renatabiniek,
+1. [**Introduction**](#Introduction-&-Site-Purpose)
+2. [**User Experience (UX)**](#User-Experience-(UX))
+    * [Project goals](#Project-goals)
+    * [User Goals](#User-Goals)
+    * [Site Owner’s Goals](#Site-Owner’s-Goals)
+    * [Target audience](#Target-audience)
+    * [User stories](#User-stories)
+    * [Structure](#Structure)
+    * [Design](#Design)
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+3. [**Features**](#Features)
+    * [Existing Features](#Existing-Features)
+    * [Features to be implemented in the future](#Features-to-be-implemented-in-the-future)
 
-## Reminders
+4. [**Technologies used**](#Technologies-used)
+    * [Languages](#Languages)
+    * [Frameworks, libraries and programs used](#Frameworks,-libraries-and-programs-used)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+5. [**Deployment**](#Deployment)
+    * [Deploying to Heroku](#Deploying-to-GitHub-Pages)
+    * [Forking to GitHub Repository](#Forking-to-GitHub-Repository)
+    * [Making a local clone](#Making-a-local-clone)
 
-## Creating the Heroku app
+6. [**Testing**](#Testing)
+    * [Testing Approach](#Testing-Approach)
+    * [User stories testing from the UX section](#User-stories-testing-from-the-UX-section)
+    * [Validator Testing](#Validator-Testing)
+    * [Issues and Bugs](#Issues-and-Bugs)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+7. [**Credits**](#Credits)
 
-1. `heroku/python`
-2. `heroku/nodejs`
+8. [**Acknowledgments**](#Acknowledgments)
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+9. [**Disclaimer**](#Disclaimer)
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+<br>
 
-Connect your GitHub repository and deploy as normal.
+# Winter Wedding RSVP
 
-## Constraints
+[Live program](https://winter-wedding.herokuapp.com/)
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+<br>
