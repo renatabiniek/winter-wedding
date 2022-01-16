@@ -3,8 +3,6 @@
 1. [**Introduction**](#Introduction)
 2. [**User Experience (UX)**](#User-Experience-(UX))
     * [Project goals](#Project-goals)
-    * [User Goals](#User-Goals)
-    * [Site Owner’s Goals](#Site-Owner’s-Goals)
     * [Target audience](#Target-audience)
     * [User stories](#User-stories)
     * [Structure](#Structure)
@@ -55,23 +53,22 @@ The data can then be used for further planning linked to the event.
 ---
 ### Project goals
 
-* 
-
-### User Goals
-
-* 
-
-### Site Owner’s Goals
-
-* 
+* to provide a tool for invited guests they can use to send their RSVP
+* to record the responses in an organised data file
+* to track and monitor responses submitted
 
 ### Target audience
 
-* 
+* Specific group of guests and their families who had been invited to a wedding
 
 ### User stories:
 
-* 
+* as an invited guest, I want to be able send my RSVP
+* as invited guest, I want to be able to see a confirmation of my responses
+* as a user, I want to clearly understand what actions are required
+* as a user, I want to be clearly notified about any errors during the RSVP process
+* as a returning user, I want to be notified if my response had been recorded and what it said
+* as an admin of the tool, I want to be able to access overview of RSVPs received
 
 ### Structure:
 
@@ -79,6 +76,9 @@ Flowchart
 
 ### Design: 
 
+As this is terminal based application, the design is limited. 
+I have kept the basic terminal colours and fonts as per the Code Institute's template used.
+The only design addition is the intro logo shown when the program starts. It illustrates the purpose of the tool and entices the user to interact with it.
 
 ## Features
 ---
