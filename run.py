@@ -172,12 +172,16 @@ def handle_accept_or_decl(value):
         print("We're sorry you can't make it.")
         print("But don't worry... ")
         print("we'll save you some cake!")
+        # end_program()
+
+        # return False
 
     elif value == "Y":
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
+        # return True
         get_number_of_guests()
-        get_diet()
+        # get_diet()
 
 
 def get_number_of_guests():
@@ -381,6 +385,7 @@ def end_program():
     print("--------------------------------")
     print("THANK YOU FOR USING THIS PROGRAM\n")
     print("Click Run Program to run it again.")
+    return
 
 
 def confirm_rsvp():
@@ -418,16 +423,12 @@ def increment_accept_or_decl(value):
     """
     if value == "Y":
         yes_responses_cell = int(SHEET.worksheet("totals").acell('C2').value)
-        print(yes_responses_cell)
         yes_responses_cell += 1
-        print(yes_responses_cell)
         update_selected_cell(2, 3, yes_responses_cell)
         return yes_responses_cell
     elif value == "N":
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
-        print(no_responses_cell)
         no_responses_cell += 1
-        print(no_responses_cell)
         update_selected_cell(2, 4, no_responses_cell)
         return no_responses_cell
 
@@ -448,6 +449,33 @@ def calculate_total_kids():
     print(sum_kids)
     update_selected_cell(2, 5, sum_kids)
     return sum_kids
+
+
+def increment_meal_choice(value):
+    """
+    """
+    print(f"About to add {value}")
+
+    if value == "V":
+        vegetarian = int(SHEET.worksheet("totals").acell('F2').value)
+        vegetarian += 1
+        update_selected_cell(2, 6, vegetarian)
+        return vegetarian
+    elif value == "VG":
+        vegan = int(SHEET.worksheet("totals").acell('G2').value)
+        vegan += 1
+        update_selected_cell(2, 7, vegan)
+        return vegan
+    elif value == "GF":
+        gluten_free = int(SHEET.worksheet("totals").acell('H2').value)
+        gluten_free += 1
+        update_selected_cell(2, 8, gluten_free)
+        return gluten_free
+    elif value == "S":
+        standard = int(SHEET.worksheet("totals").acell('I2').value)
+        standard += 1
+        update_selected_cell(2, 9, standard)
+        return standard
 
 
 def update_selected_cell(row, column, value):
@@ -475,15 +503,20 @@ def main():
         rsvp_info.append(submission_date)
         rsvp_info.append(guest_email)
         rsvp_response = get_response()
+        
+        if rsvp_response == "Y":
+            meal_selected = get_diet()
+            increment_meal_choice(meal_selected)
+            calculate_total_kids()
+        
         add_guest(rsvp_info)
         increment_rsvp_count()
         increment_accept_or_decl(rsvp_response)
-        calculate_total_kids()
         confirm_rsvp()
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
         print_rsvp_details(rsvp_summary)
         end_program()
 
-
+        
 main()
