@@ -509,6 +509,7 @@ def update_selected_cell(row, column, value):
 
 # Admin message with summary of all RSVPs
 
+
 def get_admin_overview():
     """
     Reads values from totals worksheet
@@ -517,15 +518,52 @@ def get_admin_overview():
     print("Getting admin overview")
 
     header_row = SHEET.worksheet("totals").row_values(1)
-    print(header_row)
     rsvp_row = SHEET.worksheet("totals").row_values(2)
-    print(rsvp_row)
 
     zip_rsvp = zip(header_row, rsvp_row)
     admin_dictionary = dict(zip_rsvp)
-    print(f"This is {admin_dictionary}")
-
     return admin_dictionary
+
+
+def show_end_options():
+    """
+    
+    """
+    print("What now?")
+    option_str = None
+    while True:
+        print("Type Q to quit or A for admin overview.")
+        option_str = input("Enter Q or A:\n").upper()
+        print("Checking your email address...")
+
+        if validate_option(option_str):
+            print("Option is valid\n")
+            break
+
+    return option_str
+
+
+def validate_option(value):
+    """
+    Checks that the response is Y or N,
+    returns True if valid response.
+    """
+    if value not in ["Q", "A"]:
+        return False
+
+    return True
+
+
+def run_selected_option(value):
+    if value == "Q":
+        print("Quitting now...")
+        end_program()
+
+    elif value == "A":
+        print("One moment, getting overview...")
+        admin_summary = get_admin_overview()
+        print_rsvp_details(admin_summary)
+
 
 def main():
     """
@@ -558,9 +596,13 @@ def main():
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
         print_rsvp_details(rsvp_summary)
-        admin_summary = get_admin_overview()
-        print_rsvp_details(admin_summary)
-        end_program()
+        selected_option = show_end_options()
+        run_selected_option(selected_option)
+        # admin_summary = get_admin_overview()
+        # print_rsvp_details(admin_summary)
+        if selected_option == "A":
+            end_program()
 
 
 main()
+
