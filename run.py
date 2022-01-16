@@ -384,7 +384,7 @@ def end_program():
     """
     print("--------------------------------")
     print("THANK YOU FOR USING THIS PROGRAM\n")
-    print("Click Run Program to run it again.")
+    print("Click RUN PROGRAM to run it again.")
     return
 
 
@@ -446,13 +446,19 @@ def calculate_total_kids():
     kids_values = kids[1:]
     kids_int = [int(kid) for kid in kids_values]
     sum_kids = sum(kids_int)
+    print("Calculating total of kids")
     print(sum_kids)
+    print("Updating total kids column")
     update_selected_cell(2, 5, sum_kids)
+    print(f"Total of kids attending: {sum_kids}")
     return sum_kids
 
 
 def increment_meal_choice(value):
     """
+    Increments total of selected meal option
+    and updates total in the relevant column on
+    total worksheet.
     """
     print(f"About to add {value}")
 
@@ -460,22 +466,37 @@ def increment_meal_choice(value):
         vegetarian = int(SHEET.worksheet("totals").acell('F2').value)
         vegetarian += 1
         update_selected_cell(2, 6, vegetarian)
-        return vegetarian
+
     elif value == "VG":
         vegan = int(SHEET.worksheet("totals").acell('G2').value)
         vegan += 1
         update_selected_cell(2, 7, vegan)
-        return vegan
+
     elif value == "GF":
         gluten_free = int(SHEET.worksheet("totals").acell('H2').value)
         gluten_free += 1
         update_selected_cell(2, 8, gluten_free)
-        return gluten_free
+
     elif value == "S":
         standard = int(SHEET.worksheet("totals").acell('I2').value)
         standard += 1
         update_selected_cell(2, 9, standard)
-        return standard
+
+
+def calculate_percentage(value):
+    """
+    Calculate what percentage of responses
+    has been received and rounds the result to 2 decimal places.
+    """
+    print("Calculating percentage")
+    whole = int(SHEET.worksheet("totals").acell('A2').value)
+    print(whole)
+    calc_percentage = float(value)/float(whole) * 100
+    print(value)
+    percentage = str(round(calc_percentage, 2)) + "%"
+
+    print(percentage)
+    return percentage
 
 
 def update_selected_cell(row, column, value):
@@ -508,9 +529,10 @@ def main():
             meal_selected = get_diet()
             increment_meal_choice(meal_selected)
             calculate_total_kids()
-        
+ 
         add_guest(rsvp_info)
-        increment_rsvp_count()
+        rsvp_total = increment_rsvp_count()
+        calculate_percentage(rsvp_total)
         increment_accept_or_decl(rsvp_response)
         confirm_rsvp()
         rsvp_row_number = find_a_row(guest_email)
@@ -518,5 +540,5 @@ def main():
         print_rsvp_details(rsvp_summary)
         end_program()
 
-        
+
 main()
