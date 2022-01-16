@@ -333,6 +333,7 @@ def is_returning_guest(email):
 
     if email in guest_list:
         print("Welcome back! We already have your RSVP.")
+        print("Your RSVP said:\n")
         return True
 
 
@@ -342,8 +343,7 @@ def find_a_row(value):
     and return row number
     """
     row_with_guest = SHEET.worksheet("main").find(value)
-    print(row_with_guest.row)
-
+    # print(row_with_guest.row)
     return row_with_guest.row
 
 
@@ -354,9 +354,9 @@ def return_response_details(value):
     and creates a dictionary from those 2 lists
     """
     header_row = SHEET.worksheet("main").row_values(1)
-    print(header_row)
+    # print(header_row)
     rsvp_row = SHEET.worksheet("main").row_values(value)
-    print(rsvp_row)
+    # print(rsvp_row)
 
     # code from
     # https://thispointer.com/python-how-to-convert-a-list-to-dictionary/
@@ -383,7 +383,7 @@ def end_program():
     Prints end message and exits the program
     """
     print("--------------------------------")
-    print("THANK YOU FOR USING THIS PROGRAM\n")
+    print("THANK YOU FOR USING THIS RSVP TOOL\n")
     print("Click RUN PROGRAM to run it again.")
     return
 
@@ -527,17 +527,19 @@ def get_admin_overview():
 
 def show_end_options():
     """
-    
+    Prints 2 options to the user - to quit
+    or to access admin overview.
+    Request for input is repeated until input valid.
     """
-    print("What now?")
+    print("What's next?")
     option_str = None
     while True:
         print("Type Q to quit or A for admin overview.")
         option_str = input("Enter Q or A:\n").upper()
-        print("Checking your email address...")
+        print("Checking your input...")
 
         if validate_option(option_str):
-            print("Option is valid\n")
+            print("Input is valid\n")
             break
 
     return option_str
@@ -586,7 +588,7 @@ def main():
         if rsvp_response == "Y":
             meal_selected = get_diet()
             increment_meal_choice(meal_selected)
- 
+
         add_guest(rsvp_info)
         count_kids()
         rsvp_total = increment_rsvp_count()
@@ -605,4 +607,3 @@ def main():
 
 
 main()
-
