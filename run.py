@@ -331,10 +331,13 @@ def is_returning_guest(email):
 
     guest_list = SHEET.worksheet("main").col_values(2)
 
-    if email in guest_list:
-        print("Welcome back! We already have your RSVP.")
-        print("Your RSVP said:\n")
-        return True
+    if email not in guest_list:
+        return False
+    
+    print("Welcome back! We already have your RSVP.")
+    print("Your RSVP said:\n")
+
+    return True
 
 
 def find_a_row(value):
