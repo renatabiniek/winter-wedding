@@ -69,7 +69,7 @@ def run_selected_option(value):
         print("Accessing the RSVP tool...")
 
     elif value == "A":
-        print("One moment, getting overview...")
+        print("One moment, retrieving RSVP data...\n")
         admin_summary = get_admin_overview()
         print_rsvp_details(admin_summary)
         end_program()
@@ -77,8 +77,7 @@ def run_selected_option(value):
 
 def print_logo():
     """
-    Prints an intro image.
-    From asciiart.
+    Prints an intro image from asciiart.
     """
 
     print('''
@@ -109,7 +108,8 @@ rsvp_info = []
 
 def get_guest_info():
     """
-    Get email address from the guest
+    Get email address from the guest.
+    Repeat request until email is in valid format.
     """
     email_str = None
     while True:
@@ -118,14 +118,11 @@ def get_guest_info():
         print("Checking your email address...")
 
         if validate_email(email_str):
-            print("Email is valid\n")
-            # rsvp_info.append(email_str)
+            print("Email is valid!\n")
             break
 
     return email_str
 
-
-# From https://stackabuse.com/
 
 def validate_email(email):
     """
@@ -135,6 +132,7 @@ def validate_email(email):
     Returns True if email is valid.
     """
     # Regular expression for validating the email
+    # From https://stackabuse.com/
     regex = re.compile(
         r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]'
         r'+(\.[A-Z|a-z]{2,})+')
@@ -153,17 +151,11 @@ def validate_email(email):
 
 def add_guest(data):
     """
-    Append new row with collected
-    responses.
+    Append new row with collected responses.
     """
-    print("Adding responses to main worksheet...\n")
+    print("Please wait, we're recording your responses...\n")
     main_worksheet = SHEET.worksheet("main")
-
-    # first_empty_row = (len(main_worksheet.get_all_values()) + 1)
-    # main_worksheet.update_cell(first_empty_row, 2, email)
     main_worksheet.append_row(data)
-
-    print("Responses added to main worksheet...!")
 
 
 def get_timestamp():
@@ -243,7 +235,7 @@ def get_number_of_guests():
         if validate_no_of_guests(guests) and validate_adult_att(guests):
             for guest in guests:
                 rsvp_info.append(guest)
-            print("Number of guests is correct.\n")
+            print("Number of guests is correct!\n")
             break
 
     return guests
@@ -276,7 +268,7 @@ def validate_adult_att(values):
     is not == 0 and not > 2. Also check that there is
     no more than 6 kids per invitee.
     """
-    print("Validating number of guests...")
+    print("Validating number of guests...\n")
 
     try:
         guests_int = [int(value) for value in values]
@@ -323,19 +315,19 @@ def get_diet():
     """
     Requests the guest to select dietary requirements.
     Repeat request until valid meal option selected.
-    If valid, append the choice to the rsvp_info.
+    If valid, append the choice to the rsvp_info list.
     """
 
     while True:
         print("Please let us know what meal you'd prefer.")
-        print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).")
+        print("V (vegetarian), VG (vegan), GF (glutenfree), S (standard).\n")
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
         if validate_meal_choice(meal_choice_up):
             rsvp_info.append(meal_choice_up)
             break
 
-    print(f"You selected {meal_choice_up}")
+    # print(f"You selected {meal_choice_up}")
 
     return meal_choice_up
 
@@ -345,7 +337,7 @@ def validate_meal_choice(value):
     Checks that the value entered by the user
     matches the available options.
     """
-    print("Validating meal choice...")
+    # print("Validating meal choice...")
 
     if value not in ["V", "VG", "GF", "S"]:
         print(f"Options are: V, VG, GF or S. You entered {value}")
@@ -510,7 +502,7 @@ def increment_meal_choice(value):
     and updates total in the relevant column on
     total worksheet.
     """
-    print(f"Addin your meal choise: {value}")
+    # print(f"Addin your meal choise: {value}")
 
     if value == "V":
         vegetarian = int(SHEET.worksheet("totals").acell('G2').value)
@@ -540,12 +532,11 @@ def calculate_percentage(value):
     """
     print("Calculating percentage")
     whole = int(SHEET.worksheet("totals").acell('A2').value)
-    print(whole)
     calc_percentage = float(value)/float(whole) * 100
-    print(value)
     percentage = str(round(calc_percentage, 2)) + "%"
-    print(percentage)
     update_selected_cell(2, 11, percentage)
+    print("Finished calculating percentage!")
+    print("All done!")
     return percentage
 
 
@@ -557,15 +548,13 @@ def update_selected_cell(row, column, value):
     """
     SHEET.worksheet("totals").update_cell(row, column, value)
 
-# Admin message with summary of all RSVPs
-
 
 def get_admin_overview():
     """
     Reads values from totals worksheet
     and creates a dictionary from those 2 lists
     """
-    print("Getting admin overview")
+    print("Current RSVP status:\n")
 
     header_row = SHEET.worksheet("totals").row_values(1)
     rsvp_row = SHEET.worksheet("totals").row_values(2)
@@ -573,51 +562,6 @@ def get_admin_overview():
     zip_rsvp = zip(header_row, rsvp_row)
     admin_dictionary = dict(zip_rsvp)
     return admin_dictionary
-
-
-# def show_end_options():
-#     """
-#     Prints 2 options to the user - to quit
-#     or to access admin overview.
-#     Request for input is repeated until input valid.
-#     """
-#     print("What's next?")
-#     option_str = None
-#     while True:
-#         print("Type Q to quit or A for admin overview.")
-#         option_str = input("Enter Q or A:\n").upper()
-#         print("Checking your input...")
-
-#         if validate_option(option_str):
-#             print("Input is valid\n")
-#             break
-
-#     return option_str
-
-
-# def validate_option(value):
-#     """
-#     Checks that the response is Q or A,
-#     returns True if valid response.
-#     """
-#     if value not in ["Q", "A"]:
-#         return False
-
-#     return True
-
-
-# def run_selected_option(value):
-#     """
-#     Runs next functions for each selected option.
-#     """
-#     if value == "Q":
-#         print("Quitting now...")
-#         end_program()
-
-#     elif value == "A":
-#         print("One moment, getting overview...")
-#         admin_summary = get_admin_overview()
-#         print_rsvp_details(admin_summary)
 
 
 def main():
@@ -658,10 +602,6 @@ def main():
         rsvp_summary = return_response_details(rsvp_row_number)
         print_rsvp_details(rsvp_summary)
         end_program()
-        # selected_option = show_end_options()
-        # run_selected_option(selected_option)
-        # admin_summary = get_admin_overview()
-        # print_rsvp_details(admin_summary) 
 
 
 main()
