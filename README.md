@@ -265,6 +265,8 @@ The final validation result contains no errors:
 
 * sum() function wouldn't work properly at first when calculating total number of kids. This was due to empty cells in the column. I resolved this using list comprehension that would only get values from the colum if there was a value in a cell. As this was used to simply sum the values, I didn't need to worry about the potential misalignmed where row number might be important. I followed [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to achieve this.
 
+* Count of adults and children wasn't increasing as expected at one point - this was due to incorrect order of functions called in main(). The count functions use data from the main worksheet but were called before the current RSVP data was added to the main worksheet. Fixed the order of them to be called after the data is added.
+
 * Known issue: There are multiple yellow warning messages in the terminal problems tab that relate to the image art used. Correcting them would distort the image so I left them as they are.
 
 ### Credits
