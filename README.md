@@ -72,13 +72,19 @@ The data can then be used for further planning linked to the event.
 
 * Flowchart
 
+![Flowchart](docs/flowchart.png)
+
 * Database Structure
 
-Google Sheet with 2 tabs: *main* and *totals*
+Google Sheet with 2 worksheets: *main* and *totals*
 
-*Main*
+*Main worksheet*
 
-*Totals*
+![Main worksheet](docs/main.png)
+
+*Totals worksheet*
+
+![Intro image](docs/totals.png)
 
 ### Design: 
 

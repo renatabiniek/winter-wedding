@@ -510,8 +510,6 @@ def increment_meal_choice(value):
         standard = int(SHEET.worksheet("totals").acell('J2').value)
         standard += 1
         update_selected_cell(2, 10, standard)
-    
-    # print(f"Your meal choice has been recorded!")
 
 
 def calculate_percentage(value):
