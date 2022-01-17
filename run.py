@@ -153,6 +153,7 @@ def add_guest(data):
     """
     Append new row with collected responses.
     """
+    print("Recording your response.")
     print("It might take a few seconds...\n")
     main_worksheet = SHEET.worksheet("main")
     main_worksheet.append_row(data)
@@ -216,6 +217,8 @@ def handle_accept_or_decl(value):
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
         get_number_of_guests()
+        meal_selected = get_diet()
+        increment_meal_choice(meal_selected)
 
 
 def get_number_of_guests():
@@ -291,24 +294,6 @@ def validate_adult_att(values):
         print(f"Invalid data: {error}, please try again.\n")
         return False
 
-    # guests_int = [int(value) for value in values]
-    # adults = guests_int[0]
-    # kids = guests_int[1]
-    # if adults == 0:
-    #     print("Something went wrong.")
-    #     print(f"Looks like {adults} adults are attending.")
-    #     print("Please try again.\n")
-    #     return False
-    # elif adults > 2:
-    #     print("Something went wrong.")
-    #     print(f"Only 2 adults per invite, you entered {adults}.")
-    #     print("Please try again.\n")
-    #     return False
-    # elif kids > 6:
-    #     print("Something went wrong.")
-    #     print(f"Only upto 6 kids are allowed, you entered {kids}.")
-    #     print("Please try again.\n")
-    #     return False
     return True
 
 
@@ -329,7 +314,7 @@ def get_diet():
             rsvp_info.append(meal_choice_up)
             break
 
-    print("Please wait, we're recording your responses...")
+    print("Thank you, one moment please...")
 
     return meal_choice_up
 
@@ -416,7 +401,7 @@ def confirm_rsvp():
     RSVP has been recorded and prints summary
     of their responses in terminal.
     """
-    print("Thank you for letting us know!")
+    print("Thank you for letting us know!\n")
     print("We recorded your RSVP as follows:")
 
 # Functions calculating totals start here
@@ -452,6 +437,8 @@ def increment_accept_or_decl(value):
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
         no_responses_cell += 1
         update_selected_cell(2, 4, no_responses_cell)
+          
+    print("All done! Yor response has been recorded.")
 
 
 def count_kids():
@@ -538,7 +525,7 @@ def calculate_percentage(value):
     percentage = str(round(calc_percentage, 2)) + "%"
     update_selected_cell(2, 11, percentage)
     # print("Finished calculating percentage!")
-    print("All done!")
+    print("Finishing up...!\n")
     return percentage
 
 
@@ -589,12 +576,6 @@ def main():
             rsvp_info.append(submission_date)
             rsvp_info.append(guest_email)
             rsvp_response = get_response()
-
-            # Only if guest responded Yes, show option to select meals
-            if rsvp_response == "Y":
-                meal_selected = get_diet()
-                increment_meal_choice(meal_selected)
-
             add_guest(rsvp_info)
             count_adults()
             count_kids()
