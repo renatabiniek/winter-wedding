@@ -34,12 +34,13 @@ def show_intro_options():
     Request for input is repeated until input valid.
     """
     print("--------------------------------------")
-    print("Welcome to the RSVP Tool!\n")
-    print("Are you a guest or an admin?")
+    print("Welcome to the RSVP Tool!")
+    print("--------------------------------------\n")
+    print("Are you a guest or an admin?\n")
     option_str = None
     while True:
         print("Type G to send us your RSVP or A for admin overview.")
-        option_str = input("Enter G or A:\n").upper()
+        option_str = input("Enter G for A:\n").upper()
         print("Checking your input...")
 
         if validate_option(option_str):
@@ -638,11 +639,8 @@ def main():
         # selected_option = show_end_options()
         # run_selected_option(selected_option)
         # admin_summary = get_admin_overview()
-        # print_rsvp_details(admin_summary)
-        # if selected_option == "A":
-        #     
+        # print_rsvp_details(admin_summary) 
 
 
 main()
-
 
