@@ -153,8 +153,7 @@ def add_guest(data):
     """
     Append new row with collected responses.
     """
-    print("Recording your response.")
-    print("It might take a few seconds...\n")
+    print("We're recording your response.")
     main_worksheet = SHEET.worksheet("main")
     main_worksheet.append_row(data)
 
@@ -413,6 +412,7 @@ def increment_rsvp_count():
     of reponses received in RSVP column
     on totals worksheet by 1;
     """
+    print("Updating totals...")
     rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
     # print(rsvp_total_cell)
     rsvp_total_cell += 1
@@ -437,8 +437,8 @@ def increment_accept_or_decl(value):
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
         no_responses_cell += 1
         update_selected_cell(2, 4, no_responses_cell)
-          
-    print("All done! Yor response has been recorded.")
+    
+    print("Finishing up...!\n")
 
 
 def count_kids():
@@ -525,7 +525,7 @@ def calculate_percentage(value):
     percentage = str(round(calc_percentage, 2)) + "%"
     update_selected_cell(2, 11, percentage)
     # print("Finished calculating percentage!")
-    print("Finishing up...!\n")
+    print("All done! Yor response has been recorded.\n")
     return percentage
 
 
@@ -580,8 +580,8 @@ def main():
             count_adults()
             count_kids()
             rsvp_total = increment_rsvp_count()
-            calculate_percentage(rsvp_total)
             increment_accept_or_decl(rsvp_response)
+            calculate_percentage(rsvp_total)
             confirm_rsvp()
             rsvp_row_number = find_a_row(guest_email)
             rsvp_summary = return_response_details(rsvp_row_number)
