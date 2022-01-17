@@ -432,13 +432,13 @@ def increment_accept_or_decl(value):
         yes_responses_cell = int(SHEET.worksheet("totals").acell('C2').value)
         yes_responses_cell += 1
         update_selected_cell(2, 3, yes_responses_cell)
+        count_kids()
 
     elif value == "N":
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
         no_responses_cell += 1
         update_selected_cell(2, 4, no_responses_cell)
     print("Finishing up...!\n")
-    count_kids()
 
 
 def count_kids():

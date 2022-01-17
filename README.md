@@ -196,7 +196,7 @@ Any issues found, were addressed at that stage and double checked before moving 
 * I tested input validation by:
   * entering email address in incorrect format
   * entering email address that already is on the Google Sheet
-  * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: Q/A)
+  * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: G/A)
   * entering incorrect number of guests (adults = 0 or > 2, kids > 6) 
   * entering guest data in incorrect format (not exactly 2 numbers separated by a comma)
 
