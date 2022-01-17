@@ -437,8 +437,8 @@ def increment_accept_or_decl(value):
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
         no_responses_cell += 1
         update_selected_cell(2, 4, no_responses_cell)
-    
     print("Finishing up...!\n")
+    count_kids()
 
 
 def count_kids():
@@ -454,7 +454,7 @@ def count_kids():
     kids_values = kids[1:]
     kids_int = [int(kid) for kid in kids_values]
     sum_kids = sum(kids_int)
-    # print("Calculating total of kids")
+    # print("Calculating total number of kids")
     # print(sum_kids)
     # print("Updating total kids column")
     update_selected_cell(2, 6, sum_kids)
@@ -475,7 +475,7 @@ def count_adults():
     adults_values = adults[1:]
     adults_int = [int(adult) for adult in adults_values]
     sum_adults = sum(adults_int)
-    # print("Calculating total of adults")
+    # print("Calculating total number of adults")
     # print(sum_adults)
     # print("Updating total adults column")
     update_selected_cell(2, 5, sum_adults)
@@ -575,10 +575,12 @@ def main():
             rsvp_info.append(guest_email)
             rsvp_response = get_response()
             add_guest(rsvp_info)
-            count_adults()
-            count_kids()
             rsvp_total = increment_rsvp_count()
             increment_accept_or_decl(rsvp_response)
+
+            if rsvp_response == "Y":
+                count_adults()
+
             calculate_percentage(rsvp_total)
             confirm_rsvp()
             rsvp_row_number = find_a_row(guest_email)
@@ -588,4 +590,3 @@ def main():
 
 
 main()
-
