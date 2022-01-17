@@ -590,18 +590,18 @@ def main():
             if rsvp_response == "Y":
                 meal_selected = get_diet()
                 increment_meal_choice(meal_selected)
-        
-        add_guest(rsvp_info)
-        count_adults()
-        count_kids()
-        rsvp_total = increment_rsvp_count()
-        calculate_percentage(rsvp_total)
-        increment_accept_or_decl(rsvp_response)
-        confirm_rsvp()
-        rsvp_row_number = find_a_row(guest_email)
-        rsvp_summary = return_response_details(rsvp_row_number)
-        print_rsvp_details(rsvp_summary)
-        end_program()
+            
+            add_guest(rsvp_info)
+            count_adults()
+            count_kids()
+            rsvp_total = increment_rsvp_count()
+            calculate_percentage(rsvp_total)
+            increment_accept_or_decl(rsvp_response)
+            confirm_rsvp()
+            rsvp_row_number = find_a_row(guest_email)
+            rsvp_summary = return_response_details(rsvp_row_number)
+            print_rsvp_details(rsvp_summary)
+            end_program()
 
 
 main()
