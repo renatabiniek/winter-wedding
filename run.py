@@ -26,6 +26,10 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
+# Empty list to collect responses from terminal and
+# later append to the main worksheet
+rsvp_info = []
+
 
 def show_intro_options():
     """
@@ -40,7 +44,7 @@ def show_intro_options():
     option_str = None
     while True:
         print("Type G to send us your RSVP or A for admin overview.")
-        option_str = input("Enter G for A:\n").upper()
+        option_str = input("Enter G or A:\n").upper()
         print("Checking your input...")
 
         if validate_option(option_str):
@@ -67,6 +71,34 @@ def run_selected_option(value):
     """
     if value == "G":
         print("Accessing the RSVP tool...")
+        print_logo()
+        guest_email = get_guest_info()
+
+        # If email already on the worksheet, confirm
+        # # RSVP recorded and end program
+        if is_returning_guest(guest_email):
+            rsvp_row_number = find_a_row(guest_email)
+            rsvp_summary = return_response_details(rsvp_row_number)
+            print_rsvp_details(rsvp_summary)
+            end_program()
+        else:
+            submission_date = get_timestamp()
+            rsvp_info.append(submission_date)
+            rsvp_info.append(guest_email)
+            rsvp_response = get_response()
+            add_guest(rsvp_info)
+            rsvp_total = increment_rsvp_count()
+            increment_accept_or_decl(rsvp_response)
+
+            if rsvp_response == "Y":
+                count_adults()
+
+            calculate_percentage(rsvp_total)
+            confirm_rsvp()
+            rsvp_row_number = find_a_row(guest_email)
+            rsvp_summary = return_response_details(rsvp_row_number)
+            print_rsvp_details(rsvp_summary)
+            end_program()
 
     elif value == "A":
         print("One moment, retrieving RSVP data...\n")
@@ -99,11 +131,6 @@ def print_logo():
 You've been invited to our winter wedding!
 Please RSVP here.
     ''')
-
-
-# Empty list to collect responses from terminal and
-# later append to the main worksheet
-rsvp_info = []
 
 
 def get_guest_info():
@@ -555,38 +582,19 @@ def main():
     """
     Runs all program functions.
     """
-    selected_option = show_intro_options()
-    run_selected_option(selected_option)
+    while True:
+        selected_option = show_intro_options()
+        run_selected_option(selected_option)
+        option = ''
+        while option not in ['N', 'Y']:
+            option = input("Would you like to enter another " +
+                           "response (y/n)? ").upper()
 
-    if selected_option == "G":
-        print_logo()
-        guest_email = get_guest_info()
+        if option == 'N':
+            break
 
-        # If email already on the worksheet, confirm
-        # # RSVP recorded and end program
-        if is_returning_guest(guest_email):
-            rsvp_row_number = find_a_row(guest_email)
-            rsvp_summary = return_response_details(rsvp_row_number)
-            print_rsvp_details(rsvp_summary)
-            end_program()
-        else:
-            submission_date = get_timestamp()
-            rsvp_info.append(submission_date)
-            rsvp_info.append(guest_email)
-            rsvp_response = get_response()
-            add_guest(rsvp_info)
-            rsvp_total = increment_rsvp_count()
-            increment_accept_or_decl(rsvp_response)
-
-            if rsvp_response == "Y":
-                count_adults()
-
-            calculate_percentage(rsvp_total)
-            confirm_rsvp()
-            rsvp_row_number = find_a_row(guest_email)
-            rsvp_summary = return_response_details(rsvp_row_number)
-            print_rsvp_details(rsvp_summary)
-            end_program()
+        # wipe data
+        rsvp_info.clear()
 
 
 main()
