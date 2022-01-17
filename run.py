@@ -27,6 +27,53 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
 
+def show_intro_options():
+    """
+    Prints 2 options to the user:
+    to RSVP or to access admin overview.
+    Request for input is repeated until input valid.
+    """
+    print("--------------------------------------")
+    print("Welcome to the RSVP Tool!\n")
+    print("Are you a guest or an admin?")
+    option_str = None
+    while True:
+        print("Type G to send us your RSVP or A for admin overview.")
+        option_str = input("Enter G or A:\n").upper()
+        print("Checking your input...")
+
+        if validate_option(option_str):
+            print("Input is valid\n")
+            break
+
+    return option_str
+
+
+def validate_option(value):
+    """
+    Checks that the response is G or A,
+    returns True if valid response.
+    """
+    if value not in ["G", "A"]:
+        return False
+
+    return True
+
+
+def run_selected_option(value):
+    """
+    Runs next functions for each selected option.
+    """
+    if value == "G":
+        print("Accessing the RSVP tool...")
+
+    elif value == "A":
+        print("One moment, getting overview...")
+        admin_summary = get_admin_overview()
+        print_rsvp_details(admin_summary)
+        end_program()
+
+
 def print_logo():
     """
     Prints an intro image.
@@ -53,8 +100,6 @@ You've been invited to our winter wedding!
 Please RSVP here.
     ''')
 
-
-print_logo()
 
 # Empty list to collect responses from terminal and
 # later append to the main worksheet
@@ -330,7 +375,6 @@ def find_a_row(value):
     and return row number
     """
     row_with_guest = SHEET.worksheet("main").find(value)
-    # print(row_with_guest.row)
     return row_with_guest.row
 
 
@@ -341,13 +385,10 @@ def return_response_details(value):
     and creates a dictionary from those 2 lists
     """
     header_row = SHEET.worksheet("main").row_values(1)
-    # print(header_row)
     rsvp_row = SHEET.worksheet("main").row_values(value)
-    # print(rsvp_row)
 
-    # code from
+    # code from taken from and adjusted:
     # https://thispointer.com/python-how-to-convert-a-list-to-dictionary/
-    # adjusted to suit my needs
 
     zip_rsvp = zip(header_row, rsvp_row)
     rsvp_dictionary = dict(zip_rsvp)
@@ -447,7 +488,7 @@ def increment_meal_choice(value):
     and updates total in the relevant column on
     total worksheet.
     """
-    print(f"About to add {value}")
+    print(f"Addin your meal choise: {value}")
 
     if value == "V":
         vegetarian = int(SHEET.worksheet("totals").acell('F2').value)
@@ -512,73 +553,78 @@ def get_admin_overview():
     return admin_dictionary
 
 
-def show_end_options():
-    """
-    Prints 2 options to the user - to quit
-    or to access admin overview.
-    Request for input is repeated until input valid.
-    """
-    print("What's next?")
-    option_str = None
-    while True:
-        print("Type Q to quit or A for admin overview.")
-        option_str = input("Enter Q or A:\n").upper()
-        print("Checking your input...")
+# def show_end_options():
+#     """
+#     Prints 2 options to the user - to quit
+#     or to access admin overview.
+#     Request for input is repeated until input valid.
+#     """
+#     print("What's next?")
+#     option_str = None
+#     while True:
+#         print("Type Q to quit or A for admin overview.")
+#         option_str = input("Enter Q or A:\n").upper()
+#         print("Checking your input...")
 
-        if validate_option(option_str):
-            print("Input is valid\n")
-            break
+#         if validate_option(option_str):
+#             print("Input is valid\n")
+#             break
 
-    return option_str
-
-
-def validate_option(value):
-    """
-    Checks that the response is Y or N,
-    returns True if valid response.
-    """
-    if value not in ["Q", "A"]:
-        return False
-
-    return True
+#     return option_str
 
 
-def run_selected_option(value):
-    """
-    Runs next functions for each selected option.
-    """
-    if value == "Q":
-        print("Quitting now...")
-        end_program()
+# def validate_option(value):
+#     """
+#     Checks that the response is Q or A,
+#     returns True if valid response.
+#     """
+#     if value not in ["Q", "A"]:
+#         return False
 
-    elif value == "A":
-        print("One moment, getting overview...")
-        admin_summary = get_admin_overview()
-        print_rsvp_details(admin_summary)
+#     return True
+
+
+# def run_selected_option(value):
+#     """
+#     Runs next functions for each selected option.
+#     """
+#     if value == "Q":
+#         print("Quitting now...")
+#         end_program()
+
+#     elif value == "A":
+#         print("One moment, getting overview...")
+#         admin_summary = get_admin_overview()
+#         print_rsvp_details(admin_summary)
 
 
 def main():
     """
     Runs all program functions.
     """
-    guest_email = get_guest_info()
-    # If email already on the worksheet, confirm
-    # RSVP recorded and end program
-    if is_returning_guest(guest_email):
-        rsvp_row_number = find_a_row(guest_email)
-        rsvp_summary = return_response_details(rsvp_row_number)
-        print_rsvp_details(rsvp_summary)
-        end_program()
-    else:
-        submission_date = get_timestamp()
-        rsvp_info.append(submission_date)
-        rsvp_info.append(guest_email)
-        rsvp_response = get_response()
-        # Only if guest responded Yes on RSVP, present options to select meals
-        if rsvp_response == "Y":
-            meal_selected = get_diet()
-            increment_meal_choice(meal_selected)
+    selected_option = show_intro_options()
+    run_selected_option(selected_option)
 
+    if selected_option == "G":
+        print_logo()
+        guest_email = get_guest_info()
+        # If email already on the worksheet, confirm
+        # # RSVP recorded and end program
+        if is_returning_guest(guest_email):
+            rsvp_row_number = find_a_row(guest_email)
+            rsvp_summary = return_response_details(rsvp_row_number)
+            print_rsvp_details(rsvp_summary)
+            end_program()
+        else:
+            submission_date = get_timestamp()
+            rsvp_info.append(submission_date)
+            rsvp_info.append(guest_email)
+            rsvp_response = get_response()
+            # Only if guest responded Yes, show option to select meals
+            if rsvp_response == "Y":
+                meal_selected = get_diet()
+                increment_meal_choice(meal_selected)
+        
         add_guest(rsvp_info)
         count_kids()
         rsvp_total = increment_rsvp_count()
@@ -588,12 +634,15 @@ def main():
         rsvp_row_number = find_a_row(guest_email)
         rsvp_summary = return_response_details(rsvp_row_number)
         print_rsvp_details(rsvp_summary)
-        selected_option = show_end_options()
-        run_selected_option(selected_option)
+        end_program()
+        # selected_option = show_end_options()
+        # run_selected_option(selected_option)
         # admin_summary = get_admin_overview()
         # print_rsvp_details(admin_summary)
-        if selected_option == "A":
-            end_program()
+        # if selected_option == "A":
+        #     
 
 
 main()
+
+
