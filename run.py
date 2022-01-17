@@ -172,16 +172,11 @@ def handle_accept_or_decl(value):
         print("We're sorry you can't make it.")
         print("But don't worry... ")
         print("we'll save you some cake!")
-        # end_program()
-
-        # return False
 
     elif value == "Y":
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
-        # return True
         get_number_of_guests()
-        # get_diet()
 
 
 def get_number_of_guests():
@@ -559,6 +554,9 @@ def validate_option(value):
 
 
 def run_selected_option(value):
+    """
+    Runs next functions for each selected option.
+    """
     if value == "Q":
         print("Quitting now...")
         end_program()

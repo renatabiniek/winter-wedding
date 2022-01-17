@@ -103,8 +103,10 @@ The only addition to the design is the intro logo shown when the program starts.
 
 ### Features to be implemented in the future
 
+Due to time constraints, I was unable to implement all planned features. In the future, I'd like to add the following:
+
 * Option for the returning guest to cancel or amend their RSVP
-* Automation to send out automated emails with confirmation to the guest and to the admin using Zapier 
+* Automation to send out emails with confirmation to the guest and to the admin using Zapier 
 
 ## Technologies used
 ---
@@ -189,7 +191,7 @@ Any issues found, were addressed at that stage and double checked before moving 
   * entering email address that already is on the Google Sheet
   * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: Q/A)
   * entering incorrect number of guests (adults = 0 or > 2, kids > 6) 
-  * enteruing guest data in incorrect format (not exactly 2 numbers separated by a comma)
+  * entering guest data in incorrect format (not exactly 2 numbers separated by a comma)
 
 
 * The program has been tested on various browsers on desktop and mobile:
@@ -254,15 +256,25 @@ The final validation result contains no errors:
 
 ### Issues and Bugs
 
+* This project is my first attempt at using Python, so I ran into multiple general issues with indentation, correct order of calling appropriate functions and if/else statement logic. I've managed to resolve them refering to course materials and researching online.
+
+* Issue with length of regex line:
+
+Used this advice from [Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576) to split the long expression
+
+* Request to input dietary requirements (get_diet()) was running even if the guest responded that they're not attending the event. This was due to the conditional statement in my main() function, where all other functions would run if the user was validated as new. I changed the logic and now when the RSVP is N, there are no further request for input.
+
+* Known issue: There are multiple yellow warning messages in the terminal problems tab that relate to the image art used. Correcting them would distort the image so I left them as they are.
+
 ### Credits
 
 * Love Sandwiches walk-through project by Code Institue has been used regulary as a reference when building this tool. Some code has been used and adjusted to fit the needs of this project.
 
-* image for the welcome message taken from [Ascii Art](https://www.asciiart.eu/holiday-and-events/valentine)
+* Image for the welcome message from [Ascii Art](https://www.asciiart.eu/holiday-and-events/valentine)
 
-* code to validate syntax of email address using regular expressions from [this article on Stackabuse](https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/)
+* Code to validate syntax of email address using regular expressions from [this article on Stackabuse](https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/)
 
-* advice on how to split long regex from [this post on Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576)
+* Advice on how to split long regex from [this post on Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576)
 
 ### Acknowledgments
 
