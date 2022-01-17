@@ -40,11 +40,11 @@ def show_intro_options():
     print("--------------------------------------")
     print("Welcome to the RSVP Tool!")
     print("--------------------------------------\n")
-    print("Are you a guest or an admin?\n")
+    print("If you got our wedding invite, select W.")
+    print("If you're the event coordinator, select C.\n")
     option_str = None
     while True:
-        print("Type G to send us your RSVP or A for admin overview.")
-        option_str = input("Enter G or A:\n").upper()
+        option_str = input("Enter W or C:\n").upper()
         print("Checking your input...")
 
         if validate_option(option_str):
@@ -56,10 +56,10 @@ def show_intro_options():
 
 def validate_option(value):
     """
-    Checks that the response is G or A,
+    Checks that the response is W or C,
     returns True if valid response.
     """
-    if value not in ["G", "A"]:
+    if value not in ["W", "C"]:
         return False
 
     return True
@@ -69,7 +69,7 @@ def run_selected_option(value):
     """
     Runs next functions for each selected option.
     """
-    if value == "G":
+    if value == "W":
         print("Accessing the RSVP tool...")
         print_logo()
         guest_email = get_guest_info()
@@ -100,7 +100,7 @@ def run_selected_option(value):
             print_rsvp_details(rsvp_summary)
             end_program()
 
-    elif value == "A":
+    elif value == "C":
         print("One moment, retrieving RSVP data...\n")
         admin_summary = get_admin_overview()
         print_rsvp_details(admin_summary)
@@ -418,7 +418,7 @@ def end_program():
     """
     print("--------------------------------")
     print("THANK YOU FOR USING THIS RSVP TOOL\n")
-    print("Click RUN PROGRAM to run it again.")
+    # print("Click RUN PROGRAM to run it again.")
 
 
 def confirm_rsvp():
