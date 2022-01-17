@@ -97,7 +97,7 @@ The only addition to the design is the intro logo shown when the program starts.
 
 ### Existing Features
 
-* Option to access the tool as a wedding guest or admin (to preview admin summary of all RSVPs received)
+* Option to access the tool as a wedding guest or wedding coordinator (to preview admin summary of all RSVPs received)
 * Intro image and welcome message: 
 
 ![Intro image](docs/intro.png)
@@ -105,12 +105,13 @@ The only addition to the design is the intro logo shown when the program starts.
 * Series of questions with requests for user input that gets recorded on the Google Sheet
 * Checking for duplicated response attempt and printing back a message to the user
 * Recording totals of RSVP details, tracking % of responses received and preparing a live admin overview
-* End message
+* End message with option to start again
 
 ### Features to be implemented in the future
 
 Due to time constraints, I was unable to implement all planned features. In the future, I'd like to add the following:
 
+* Option for the user to quit the RSVP flow - at the moment, they have to complete the selected flow or press Run Program button
 * Option for the returning guest to cancel or amend their RSVP
 * Automation to send out emails with confirmation to the guest and to the admin using Zapier 
 * Add authorisation option to access admin overview
@@ -272,6 +273,8 @@ The final validation result contains no errors:
 * sum() function wouldn't work properly at first when calculating total number of kids. This was due to empty cells in the column. I resolved this using list comprehension that would only get values from the colum if there was a value in a cell. As this was used to simply sum the values, I didn't need to worry about the potential misalignmed where row number might be important. I followed [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to achieve this.
 
 * Count of adults and children wasn't increasing as expected at one point - this was due to incorrect order of functions called in main(). The count functions use data from the main worksheet but were called before the current RSVP data was added to the main worksheet. Fixed the order of them to be called after the data is added.
+
+* A list of new responses was getting attached to the previous row of responses in the main worksheet at one point. This happened after a while loop was added to display a final option to start the tool again. The issue was due to the use of the global variable rsvp_info. When user selected to start again, their responses were added to the existing list. This was solved by wiping the data in the rsvp_info list when program restarts.
 
 * Known issue: There are multiple yellow warning messages in the terminal problems tab that relate to the image art used. Correcting them would distort the image so I left them as they are.
 
