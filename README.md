@@ -74,7 +74,11 @@ The data can then be used for further planning linked to the event.
 
 * Database Structure
 
+Google Sheet with 2 tabs: *main* and *totals*
 
+*Main*
+
+*Totals*
 
 ### Design: 
 
@@ -86,12 +90,23 @@ The only addition to the design is the intro logo shown when the program starts.
 ---
 
 ### Existing Features
+<br>
 
+* Intro image and welcome message: 
 
+![Intro image](docs/intro.png)
+
+* Series of questions with requests for user input that gets recorded on the Google Sheet
+* Checking for duplicated response attempt and printing back a message to the user
+* Recording totals of RSVP details, tracking % of responses received and preparing a live admin overview
+* Option to quit the program or preview admin summary of all RSVPs received
+<br>
 
 ### Features to be implemented in the future
 
-* 
+* Option for the returning guest to cancel or amend their RSVP
+* Automation to send out automated emails with confirmation to the guest and to the admin using Zapier 
+<br>
 
 ## Technologies used
 ---
