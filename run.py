@@ -205,31 +205,21 @@ def get_number_of_guests():
 
 def validate_no_of_guests(values):
     """
-    Converts strings with numbers to integers,
+    Inside try, converts strings with numbers to integers,
     raises ValueError if string cannot be converted into a number,
     if there aren't exactly 2 values.
     """
     try:
-        [int(value) for value in values]
-        if len(values) != 2:
+        guest_count = [int(value) for value in values]
+        if len(guest_count) != 2:
             raise ValueError(
-                f"Two numbers are required, you provided {len(values)}"
+                f"Two numbers are required, you provided {len(guest_count)}"
             )
     except ValueError as error:
         print(f"Invalid data: {error}, please try again.\n")
         return False
 
     return True
-
-    # numb_of_guests = [int(value) for value in values]
-
-    # if len(numb_of_guests) != 2:
-    #     print(f"Two numbers are required,
-    #     you provided {len(numb_of_guests)}.")
-    #     print("Please try again.\n")
-    #     return False
-
-    # return True
 
 
 def validate_adult_att(values):
