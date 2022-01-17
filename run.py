@@ -333,7 +333,6 @@ def is_returning_guest(email):
 
     if email not in guest_list:
         return False
-    
     print("Welcome back! We already have your RSVP.")
     print("Your RSVP said:\n")
 

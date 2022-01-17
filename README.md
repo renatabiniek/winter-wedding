@@ -90,7 +90,6 @@ The only addition to the design is the intro logo shown when the program starts.
 ---
 
 ### Existing Features
-<br>
 
 * Intro image and welcome message: 
 
@@ -100,13 +99,12 @@ The only addition to the design is the intro logo shown when the program starts.
 * Checking for duplicated response attempt and printing back a message to the user
 * Recording totals of RSVP details, tracking % of responses received and preparing a live admin overview
 * Option to quit the program or preview admin summary of all RSVPs received
-<br>
+* End message
 
 ### Features to be implemented in the future
 
 * Option for the returning guest to cancel or amend their RSVP
 * Automation to send out automated emails with confirmation to the guest and to the admin using Zapier 
-<br>
 
 ## Technologies used
 ---
@@ -183,9 +181,76 @@ You can also refer to this [GitHub documentation](https://docs.github.com/en/git
 
 ### Testing Approach
 
+* I tested the program regularly during the development proces. I relied on multiple print statements to understand which part of the code is getting executed and causes any potential issues. Once the app was deploued to the mock terminal on Heroku, I manually tested the program, by following all available user paths.
+Any issues found, were addressed at that stage and double checked before moving on with the rest of the project.
+
+* I tested input validation by:
+  * entering email address in incorrect format
+  * entering email address that already is on the Google Sheet
+  * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: Q/A)
+  * entering incorrect number of guests (adults = 0 or > 2, kids > 6) 
+  * enteruing guest data in incorrect format (not exactly 2 numbers separated by a comma)
+
+
+* The program has been tested on various browsers on desktop and mobile:
+
+  * Chrome
+  * Mozila Firefox
+  * Edge
+  * Safari 
+
+ Although not responsive on mobiles, the program still is displayed and works as expected.
+ The only issue on some mobile phones was with input autofill, where random characters where pre-populating in the input field. 
+ Once overriden, input was getting accepted.
+
 ### User stories testing from the UX section
 
+I tested the program considering the user stories from the UX section as well.
+
+* as an invited guest, I want to be able send my RSVP
+
+  **Test result:**  PASS
+
+User is lead through a series of RSVP questions and their answers are recorded once they complete the path.
+
+* as an invited guest, I want to be able to see a confirmation of my responses
+
+  **Test result:**  PASS
+
+Detailed confirmation of the repsonses is printed in the terminal at the end of the path.
+
+* as a user, I want to clearly understand what actions are required
+
+  **Test result:**  PASS
+
+Each question has clear instruction as for the detials and format required, available options are cleary presented and user is informed how to select them.
+
+* as a user, I want to be clearly notified about any errors during the RSVP process
+
+  **Test result:**  PASS
+
+Each time incorrect value is entered, the user sees details of the error in the terminal, and has an option to enter data again until it's valid.
+
+* as a returning user, I want to be notified if my response had already been recorded and what it said
+
+  **Test result:**  PASS
+
+The program looks up the provided email address on the Google Sheet, and if email is already recorded, it informs the user and prints details of the RSVP in the terminal. 
+
+* as an admin of the tool, I want to be able to access overview of RSVPs received
+
+  **Test result:**  PASS
+
+Admin can request the admin overview that is calculated based on the current data on the Google Sheet. The overview is printed in the terminal.
+
 ### Validator Testing
+
+I used PEP8 Online Validation Service to regulary check and validate the code. I've been resolving any issues as they come up.
+Main errors were to do with line length, whitespaces, however there were also a few that cought invalid syntax and unused variables.
+The final validation result contains no errors:
+
+![PEP8 results](docs/pep8.png)
+
 
 ### Issues and Bugs
 
@@ -203,11 +268,11 @@ You can also refer to this [GitHub documentation](https://docs.github.com/en/git
 
 Thank you to:
 
-My mentor Guido Cecilio for the invaluable support and feedback
-The community on Slack
-My partner for continous support
+* My mentor Guido Cecilio for the invaluable support and feedback.
+* The community on Slack.
+* My partner for continous support.
 
 ### Disclaimer
 
-This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project 3.
-The requirements are to build a command-line application that allows your users to manage a common dataset.
+*This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project 3.
+The requirements are to build a command-line application that allows your users to manage a common dataset.*
