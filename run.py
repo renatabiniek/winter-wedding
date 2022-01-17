@@ -44,7 +44,7 @@ def show_intro_options():
         print("Checking your input...")
 
         if validate_option(option_str):
-            print("Input is valid\n")
+            print("Input is valid!\n")
             break
 
     return option_str
@@ -153,7 +153,7 @@ def add_guest(data):
     """
     Append new row with collected responses.
     """
-    print("Please wait, we're recording your responses...\n")
+    print("It might take a few seconds...\n")
     main_worksheet = SHEET.worksheet("main")
     main_worksheet.append_row(data)
 
@@ -163,6 +163,7 @@ def get_timestamp():
     Gets current date and time and parses it into the selected format
     and appends to the rsvp_info list
     """
+    # print("Getting timestamp...")
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
     stamp = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -209,7 +210,7 @@ def handle_accept_or_decl(value):
     if value == "N":
         print("We're sorry you can't make it.")
         print("But don't worry... ")
-        print("we'll save you some cake!")
+        print("we'll save you some cake!\n")
 
     elif value == "Y":
         print("You said YES!")
@@ -324,10 +325,11 @@ def get_diet():
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
         if validate_meal_choice(meal_choice_up):
+            # print("Selected meal option is valid!")
             rsvp_info.append(meal_choice_up)
             break
 
-    # print(f"You selected {meal_choice_up}")
+    print("Please wait, we're recording your responses...")
 
     return meal_choice_up
 
@@ -337,7 +339,7 @@ def validate_meal_choice(value):
     Checks that the value entered by the user
     matches the available options.
     """
-    # print("Validating meal choice...")
+    # print("Validating selected meal option...")
 
     if value not in ["V", "VG", "GF", "S"]:
         print(f"Options are: V, VG, GF or S. You entered {value}")
@@ -406,7 +408,6 @@ def end_program():
     print("--------------------------------")
     print("THANK YOU FOR USING THIS RSVP TOOL\n")
     print("Click RUN PROGRAM to run it again.")
-    return
 
 
 def confirm_rsvp():
@@ -428,9 +429,9 @@ def increment_rsvp_count():
     on totals worksheet by 1;
     """
     rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
-    print(rsvp_total_cell)
+    # print(rsvp_total_cell)
     rsvp_total_cell += 1
-    print(rsvp_total_cell)
+    # print(rsvp_total_cell)
     update_selected_cell(2, 2, rsvp_total_cell)
 
     return rsvp_total_cell
@@ -446,12 +447,11 @@ def increment_accept_or_decl(value):
         yes_responses_cell = int(SHEET.worksheet("totals").acell('C2').value)
         yes_responses_cell += 1
         update_selected_cell(2, 3, yes_responses_cell)
-        return yes_responses_cell
+
     elif value == "N":
         no_responses_cell = int(SHEET.worksheet("totals").acell('D2').value)
         no_responses_cell += 1
         update_selected_cell(2, 4, no_responses_cell)
-        return no_responses_cell
 
 
 def count_kids():
@@ -467,11 +467,11 @@ def count_kids():
     kids_values = kids[1:]
     kids_int = [int(kid) for kid in kids_values]
     sum_kids = sum(kids_int)
-    print("Calculating total of kids")
-    print(sum_kids)
-    print("Updating total kids column")
+    # print("Calculating total of kids")
+    # print(sum_kids)
+    # print("Updating total kids column")
     update_selected_cell(2, 6, sum_kids)
-    print(f"Total of kids attending: {sum_kids}")
+    # print(f"Total of kids attending: {sum_kids}")
     return sum_kids
 
 
@@ -488,11 +488,11 @@ def count_adults():
     adults_values = adults[1:]
     adults_int = [int(adult) for adult in adults_values]
     sum_adults = sum(adults_int)
-    print("Calculating total of adults")
-    print(sum_adults)
-    print("Updating total adults column")
+    # print("Calculating total of adults")
+    # print(sum_adults)
+    # print("Updating total adults column")
     update_selected_cell(2, 5, sum_adults)
-    print(f"Total of adults attending: {sum_adults}")
+    # print(f"Total of adults attending: {sum_adults}")
     return sum_adults
 
 
@@ -502,7 +502,7 @@ def increment_meal_choice(value):
     and updates total in the relevant column on
     total worksheet.
     """
-    # print(f"Addin your meal choise: {value}")
+    # print(f"Recording your meal choice...")
 
     if value == "V":
         vegetarian = int(SHEET.worksheet("totals").acell('G2').value)
@@ -523,6 +523,8 @@ def increment_meal_choice(value):
         standard = int(SHEET.worksheet("totals").acell('J2').value)
         standard += 1
         update_selected_cell(2, 10, standard)
+    
+    # print(f"Your meal choice has been recorded!")
 
 
 def calculate_percentage(value):
@@ -530,12 +532,12 @@ def calculate_percentage(value):
     Calculate what percentage of responses
     has been received and rounds the result to 2 decimal places.
     """
-    print("Calculating percentage")
+    # print("Calculating percentage")
     whole = int(SHEET.worksheet("totals").acell('A2').value)
     calc_percentage = float(value)/float(whole) * 100
     percentage = str(round(calc_percentage, 2)) + "%"
     update_selected_cell(2, 11, percentage)
-    print("Finished calculating percentage!")
+    # print("Finished calculating percentage!")
     print("All done!")
     return percentage
 
@@ -574,6 +576,7 @@ def main():
     if selected_option == "G":
         print_logo()
         guest_email = get_guest_info()
+
         # If email already on the worksheet, confirm
         # # RSVP recorded and end program
         if is_returning_guest(guest_email):
@@ -586,14 +589,15 @@ def main():
             rsvp_info.append(submission_date)
             rsvp_info.append(guest_email)
             rsvp_response = get_response()
+
             # Only if guest responded Yes, show option to select meals
             if rsvp_response == "Y":
                 meal_selected = get_diet()
                 increment_meal_choice(meal_selected)
+                count_adults()
+                count_kids()
             
             add_guest(rsvp_info)
-            count_adults()
-            count_kids()
             rsvp_total = increment_rsvp_count()
             calculate_percentage(rsvp_total)
             increment_accept_or_decl(rsvp_response)
