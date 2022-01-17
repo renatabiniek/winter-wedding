@@ -13,8 +13,6 @@
     * [Features to be implemented in the future](#Features-to-be-implemented-in-the-future)
 
 4. [**Technologies used**](#Technologies-used)
-    * [Languages](#Languages)
-    * [Frameworks, libraries and programs used](#Frameworks,-libraries-and-programs-used)
 
 5. [**Deployment**](#Deployment)
     * [Deploying to Heroku](#Deploying-to-GitHub-Pages)
@@ -53,8 +51,8 @@ The data can then be used for further planning linked to the event.
 ---
 ### Project goals
 
-* to provide a tool for invited guests they can use to send their RSVP
-* to record the responses in an organised data file
+* to provide a tool for wedding guests they can use to send their RSVP
+* to record their responses in an organised data file
 * to track and monitor responses submitted
 
 ### Target audience
@@ -64,26 +62,32 @@ The data can then be used for further planning linked to the event.
 ### User stories:
 
 * as an invited guest, I want to be able send my RSVP
-* as invited guest, I want to be able to see a confirmation of my responses
+* as an invited guest, I want to be able to see a confirmation of my responses
 * as a user, I want to clearly understand what actions are required
 * as a user, I want to be clearly notified about any errors during the RSVP process
-* as a returning user, I want to be notified if my response had been recorded and what it said
+* as a returning user, I want to be notified if my response had already been recorded and what it said
 * as an admin of the tool, I want to be able to access overview of RSVPs received
 
 ### Structure:
 
-Flowchart
+* Flowchart
+
+* Database Structure
+
+
 
 ### Design: 
 
-As this is terminal based application, the design is limited. 
+As this is a terminal based application, the design is limited. 
 I have kept the basic terminal colours and fonts as per the Code Institute's template used.
-The only design addition is the intro logo shown when the program starts. It illustrates the purpose of the tool and entices the user to interact with it.
+The only addition to the design is the intro logo shown when the program starts. It illustrates the purpose of the tool and entices the user to interact with it.
 
 ## Features
 ---
 
 ### Existing Features
+
+
 
 ### Features to be implemented in the future
 
@@ -92,15 +96,10 @@ The only design addition is the intro logo shown when the program starts. It ill
 ## Technologies used
 ---
 
-### Languages
-
-* [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
-
-### Frameworks, libraries and programs used
-
-* Code Institute template
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - language used for this project
+* [Code Institute Template](https://github.com/Code-Institute-Org/python-essentials-template) - to display and run the command line terminal in the browser
 * Google Sheets
-* Google Cloud Platform
+* [Google Cloud Platform](https://console.cloud.google.com/)
 * gsptread
 * re
 * google.oauth2.service_account
@@ -161,9 +160,25 @@ You can also refer to this [GitHub documentation](https://docs.github.com/en/git
 
 ### Issues and Bugs
 
+### Credits
+
+* Love Sandwiches walk-through project by Code Institue has been used regulary as a reference when building this tool. Some code has been used and adjusted to fit the needs of this project.
+
+* image for the welcome message taken from [Ascii Art](https://www.asciiart.eu/holiday-and-events/valentine)
+
+* code to validate syntax of email address using regular expressions from [this article on Stackabuse](https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/)
+
+* advice on how to split long regex from [this post on Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576)
+
 ### Acknowledgments
+
+Thank you to:
+
+My mentor Guido Cecilio for the invaluable support and feedback
+The community on Slack
+My partner for continous support
 
 ### Disclaimer
 
-This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project3.
+This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project 3.
 The requirements are to build a command-line application that allows your users to manage a common dataset.
