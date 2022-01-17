@@ -478,9 +478,30 @@ def count_kids():
     print("Calculating total of kids")
     print(sum_kids)
     print("Updating total kids column")
-    update_selected_cell(2, 5, sum_kids)
+    update_selected_cell(2, 6, sum_kids)
     print(f"Total of kids attending: {sum_kids}")
     return sum_kids
+
+
+def count_adults():
+    """
+    Gets all values from column Adults on main worksheet
+    and ignores any empty cells. Converts values to integers.
+    Adds all values using sum() and inserts it in the
+    specified cell on total worksheet.
+    """
+    # https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python
+
+    adults = [item for item in SHEET.worksheet("main").col_values(4) if item]
+    adults_values = adults[1:]
+    adults_int = [int(adult) for adult in adults_values]
+    sum_adults = sum(adults_int)
+    print("Calculating total of adults")
+    print(sum_adults)
+    print("Updating total adults column")
+    update_selected_cell(2, 5, sum_adults)
+    print(f"Total of adults attending: {sum_adults}")
+    return sum_adults
 
 
 def increment_meal_choice(value):
@@ -492,24 +513,24 @@ def increment_meal_choice(value):
     print(f"Addin your meal choise: {value}")
 
     if value == "V":
-        vegetarian = int(SHEET.worksheet("totals").acell('F2').value)
+        vegetarian = int(SHEET.worksheet("totals").acell('G2').value)
         vegetarian += 1
-        update_selected_cell(2, 6, vegetarian)
+        update_selected_cell(2, 7, vegetarian)
 
     elif value == "VG":
-        vegan = int(SHEET.worksheet("totals").acell('G2').value)
+        vegan = int(SHEET.worksheet("totals").acell('H2').value)
         vegan += 1
-        update_selected_cell(2, 7, vegan)
+        update_selected_cell(2, 8, vegan)
 
     elif value == "GF":
-        gluten_free = int(SHEET.worksheet("totals").acell('H2').value)
+        gluten_free = int(SHEET.worksheet("totals").acell('I2').value)
         gluten_free += 1
-        update_selected_cell(2, 8, gluten_free)
+        update_selected_cell(2, 9, gluten_free)
 
     elif value == "S":
-        standard = int(SHEET.worksheet("totals").acell('I2').value)
+        standard = int(SHEET.worksheet("totals").acell('J2').value)
         standard += 1
-        update_selected_cell(2, 9, standard)
+        update_selected_cell(2, 10, standard)
 
 
 def calculate_percentage(value):
@@ -524,7 +545,7 @@ def calculate_percentage(value):
     print(value)
     percentage = str(round(calc_percentage, 2)) + "%"
     print(percentage)
-    update_selected_cell(2, 10, percentage)
+    update_selected_cell(2, 11, percentage)
     return percentage
 
 
@@ -627,6 +648,7 @@ def main():
                 increment_meal_choice(meal_selected)
         
         add_guest(rsvp_info)
+        count_adults()
         count_kids()
         rsvp_total = increment_rsvp_count()
         calculate_percentage(rsvp_total)
