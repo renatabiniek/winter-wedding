@@ -594,10 +594,10 @@ def main():
             if rsvp_response == "Y":
                 meal_selected = get_diet()
                 increment_meal_choice(meal_selected)
-                count_adults()
-                count_kids()
-            
+
             add_guest(rsvp_info)
+            count_adults()
+            count_kids()
             rsvp_total = increment_rsvp_count()
             calculate_percentage(rsvp_total)
             increment_accept_or_decl(rsvp_response)
