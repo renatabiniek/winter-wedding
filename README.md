@@ -98,17 +98,18 @@ The only addition to the design is the intro logo shown when the program starts.
 
 * [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - language used for this project
 * [Code Institute Template](https://github.com/Code-Institute-Org/python-essentials-template) - to display and run the command line terminal in the browser
-* Google Sheets
-* [Google Cloud Platform](https://console.cloud.google.com/)
-* gsptread
-* re
-* google.oauth2.service_account
-* datetime
+* [Google Sheets](https://www.google.com/sheets/about/) - to store and organise data
+* [Google Cloud Platform](https://console.cloud.google.com/) - for APIs and credentials to access Google Sheets
+* [gsptread](https://pypi.org/project/gspread/) - to access, update and manipulate data from Google Sheets
+* [re](https://docs.python.org/3/library/re.html) - for regular expression to validate email syntax
+* [google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - to authenticate and authorize the application
+* [datetime](https://docs.python.org/3/library/datetime.html) - for creating the timestamp
+* [Lucidchart](https://www.lucidchart.com/) - to create the flowchart
 * [Heroku](https://heroku.com/) - for presenting the deployed project
 * [GitHub](https://github.com/) - for hosting the project code and version control 
 * [Gitpod](https://gitpod.io/) - to write the code and push it to GitHub
 * [PEP8 Online Validation Service](http://pep8online.com/) - to validate the code
-* [Online-Spellcheck](https://www.online-spellcheck.com/) - to spellcheck the content of the site and README
+* [Online-Spellcheck](https://www.online-spellcheck.com/) - to spellcheck the README
 
 ## Deployment
 ---
@@ -117,11 +118,24 @@ The only addition to the design is the intro logo shown when the program starts.
 The project was developed in GitPod, committed to Git and pushed to GitHub. 
 The site was deployed to Heroku with the following steps:
 
-1. Login to Heroku
-2. 
-3. 
-4. 
-5. 
+1. In GitPod, import the required dependencies to the requirements.txt file, using 
+> pip3 freeze > requirements.txt
+2. Git add, commit and push the saved changes to GitHub. Heroku will use this file to import the dependencies that are required.
+3. Sign up and log in to [Heroku](https://heroku.com).
+4. On the dashboard, click **New** in the top right-hand corner and select **Create New App**.
+5. Select a *unique* name for your application and choose your region (Europe in my case).
+6. Click **Create App**.
+7. Navigate to the Settings tab (must be done before deploying code)
+8. Go to section **Config Vars**, click button "Reveal Config Vars" and press "Add" button
+9. In the "KEY" field: type "CREDS" (all capital letters) and in the "VALUE" field: paste the copied content of "creds.json" file from GitPod
+10. Click "Add" and add another key "PORT" and value "8000"
+11. Go to the Settings tab and scroll down to **Buildpacks**. Select and save: 'Python', then repeat and select and save: 'Node.js'. (has to be in this order, drag and drop if needed)
+12. Navigate to the Deploy tab and scroll down to **Deployment Method**.
+13. Select GitHub as deployment method.
+14. Enter the name of the repository you want to connect to and click **Connect**.
+15. Select one of the deployment options - Automatic Deployments or Manual - to deploy the app.
+16. Once sucessfully deployed, a **View** button will appear and take you to a mock terminal.
+
 
 ### Forking to GitHub Repository
 
