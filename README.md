@@ -97,6 +97,7 @@ The only addition to the design is the intro logo shown when the program starts.
 
 ### Existing Features
 
+* Option to access the tool as a wedding guest or admin (to preview admin summary of all RSVPs received)
 * Intro image and welcome message: 
 
 ![Intro image](docs/intro.png)
@@ -104,7 +105,6 @@ The only addition to the design is the intro logo shown when the program starts.
 * Series of questions with requests for user input that gets recorded on the Google Sheet
 * Checking for duplicated response attempt and printing back a message to the user
 * Recording totals of RSVP details, tracking % of responses received and preparing a live admin overview
-* Option to quit the program or preview admin summary of all RSVPs received
 * End message
 
 ### Features to be implemented in the future
