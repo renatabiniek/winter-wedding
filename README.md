@@ -107,6 +107,7 @@ Due to time constraints, I was unable to implement all planned features. In the 
 
 * Option for the returning guest to cancel or amend their RSVP
 * Automation to send out emails with confirmation to the guest and to the admin using Zapier 
+* Add authorisation option to access admin overview
 
 ## Technologies used
 ---
