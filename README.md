@@ -178,7 +178,7 @@ The site was deployed to Heroku with the following steps:
 13. Select GitHub as deployment method.
 14. Enter the name of the repository you want to connect to and click **Connect**.
 15. Select one of the deployment options - Automatic Deployments or Manual - to deploy the app.
-16. Once sucessfully deployed, a **View** button will appear and take you to a mock terminal.
+16. Once successfully deployed, a **View** button will appear and take you to a mock terminal.
 
 
 ### Forking to GitHub Repository
@@ -212,7 +212,7 @@ You can also refer to this [GitHub documentation](https://docs.github.com/en/git
 
 ### Testing Approach
 
-* I tested the program regularly during the development proces. I relied on multiple print statements to understand which part of the code is getting executed and causes any potential issues. Once the app was deploued to the mock terminal on Heroku, I manually tested the program, by following all available user paths.
+* I tested the program regularly during the development process. I relied on multiple print statements to understand which part of the code is getting executed and causes any potential issues. Once the app was deployed to the mock terminal on Heroku, I manually tested the program, by following all available user paths.
 Any issues found, were addressed at that stage and double checked before moving on with the rest of the project.
 
 * I tested input validation by:
@@ -232,7 +232,7 @@ Any issues found, were addressed at that stage and double checked before moving 
 
  Although not responsive on mobiles, the program still is displayed and works as expected.
  The only issue on some mobile phones was with input autofill, where random characters where pre-populating in the input field. 
- Once overriden, input was getting accepted.
+ Once overridden, input was getting accepted.
 
 ### User stories testing from the UX section
 
@@ -264,7 +264,7 @@ I tested the program considering the user stories from the UX section as well.
 
   **Test result:**  PASS
 
-  Detailed confirmation of the repsonses is printed in the terminal at the end of the path.
+  Detailed confirmation of the responses is printed in the terminal at the end of the path.
 
   ![RSVP confirmation image](docs/confirmation.png)
 
@@ -272,7 +272,7 @@ I tested the program considering the user stories from the UX section as well.
 
   **Test result:**  PASS
 
-  Each question has clear instruction as for the details and format required, available options are cleary presented and user is informed how to select them.
+  Each question has clear instruction as for the details and format required, available options are clearly presented and user is informed how to select them.
 
   ![Actions image](docs/actions.png)
 
@@ -320,8 +320,8 @@ I tested the program considering the user stories from the UX section as well.
 
 ### Validator Testing
 
-I used PEP8 Online Validation Service to regulary check and validate the code. I've been resolving any issues as they come up.
-Main errors were to do with line length, whitespaces, however there were also a few that cought invalid syntax and unused variables.
+I used PEP8 Online Validation Service to regularly check and validate the code. I've been resolving any issues as they come up.
+Main errors were to do with line length, white spaces, however there were also a few that caught invalid syntax and unused variables.
 The final validation result contains no errors:
 
 ![PEP8 results image](docs/pep8.png)
@@ -329,13 +329,13 @@ The final validation result contains no errors:
 
 ### Issues and Bugs
 
-* This project is my first attempt at using Python, so I ran into multiple general issues with indentation, correct order of calling appropriate functions and if/else statement logic. I've managed to resolve them refering to course materials and researching online.
+* This project is my first attempt at using Python, so I ran into multiple general issues with indentation, correct order of calling appropriate functions and if/else statement logic. I've managed to resolve them referring to course materials and researching online.
 
 * Issue with length of regex line: I used this advice from [Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576) to split the long expression
 
 * Request to input dietary requirements (get_diet()) was running even if the guest responded that they're not attending the event. This was due to the conditional statement in my main() function, where all other functions would run if the user was validated as new. I changed the logic and now when the RSVP is N, there are no further request for input.
 
-* sum() function wouldn't work properly at first when calculating total number of kids. This was due to empty cells in the column. I resolved this using list comprehension that would only get values from the colum if there was a value in a cell. As this was used to simply sum the values, I didn't need to worry about the potential misalignmed where row number might be important. I followed [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to achieve this.
+* sum() function wouldn't work properly at first when calculating total number of kids. This was due to empty cells in the column. I resolved this using list comprehension that would only get values from the column if there was a value in a cell. As this was used to simply sum the values, I didn't need to worry about the potential misalignment where row number might be important. I followed [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to achieve this.
 
 * Count of adults and children wasn't increasing as expected at one point - this was due to incorrect order of functions called in main(). The count functions use data from the main worksheet but were called before the current RSVP data was added to the main worksheet. Fixed the order of them to be called after the data is added.
 
@@ -345,13 +345,13 @@ The final validation result contains no errors:
 
 ### Credits
 
-* Love Sandwiches walk-through project by Code Institue has been used regulary as a reference when building this tool. Some code has been used and adjusted to fit the needs of this project.
+* Love Sandwiches walk-through project by Code Institue has been used regularly as a reference when building this tool. Some code has been used and adjusted to fit the needs of this project.
 
 * Image for the welcome message from [Ascii Art](https://www.asciiart.eu/holiday-and-events/valentine)
 
 * Code to validate syntax of email address using regular expressions from [this article on Stackabuse](https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/)
 
-* [Stackoverflow](https://stackoverflow.com/) in general, for providing answers on mulitiple occasions. Especially, advice on how to split long regex from [this post on Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576) and [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to ignore empty cells in a colum 
+* [Stackoverflow](https://stackoverflow.com/) in general, for providing answers on multiple occasions. Especially, advice on how to split long regex from [this post on Stackoverflow](https://stackoverflow.com/questions/8006551/how-to-split-long-regular-expression-rules-to-multiple-lines-in-python/8006576#8006576) and [this post on Stackoverflow](https://stackoverflow.com/questions/45134764/getting-all-column-values-from-google-sheet-using-gspread-and-python) to ignore empty cells in a column 
 
 ### Acknowledgments
 
@@ -359,7 +359,7 @@ Thank you to:
 
 * My mentor Guido Cecilio for the invaluable support and feedback.
 * The community on Slack.
-* My partner for continous support.
+* My partner for continuous support.
 
 ### Disclaimer
 
