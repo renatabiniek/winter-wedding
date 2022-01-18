@@ -37,6 +37,8 @@
 
 [Live program](https://winter-wedding.herokuapp.com/)
 
+![RSVP Tool image](docs/rsvp-tool.png)
+
 <br>
 
 ## Introduction
