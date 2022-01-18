@@ -72,7 +72,7 @@ The data can then be used for further planning linked to the event.
 
 * Flowchart
 
-![Flowchart](docs/flowchart.png)
+![Flowchart image](docs/flowchart.png)
 
 * Database Structure
 
@@ -80,11 +80,11 @@ Google Sheet with 2 worksheets: *main* and *totals*
 
 *Main worksheet*
 
-![Main worksheet](docs/main.png)
+![Main worksheet image](docs/main.png)
 
 *Totals worksheet*
 
-![Intro image](docs/totals.png)
+![Totals worksheet image](docs/totals.png)
 
 ### Design: 
 
@@ -97,15 +97,34 @@ The only addition to the design is the intro logo shown when the program starts.
 
 ### Existing Features
 
-* Option to access the tool as a wedding guest or wedding coordinator (to preview admin summary of all RSVPs received)
+* Option to access the tool as a wedding guest (and RSVP) or the wedding coordinator (to preview admin summary of all RSVPs received)
+
+  ![Start options image](docs/start.png)
+
 * Intro image and welcome message: 
 
-![Intro image](docs/intro.png)
+  ![Intro image](docs/intro.png)
 
 * Series of questions with requests for user input that gets recorded on the Google Sheet
+
+  ![RSVP response image](docs/response.png)
+
+  ![Guest count image](docs/guests.png)
+
+  ![Diet choice image](docs/diet.png)
+
 * Checking for duplicated response attempt and printing back a message to the user
+
+  ![Duplicated email image](docs/duplicate.png)
+
 * Recording totals of RSVP details, tracking % of responses received and preparing a live admin overview
+
+  ![Coordinator overview image](docs/overview.png)
+
 * End message with option to start again
+
+  ![End message image](docs/end.png)
+
 
 ### Features to be implemented in the future
 
@@ -259,7 +278,7 @@ I used PEP8 Online Validation Service to regulary check and validate the code. I
 Main errors were to do with line length, whitespaces, however there were also a few that cought invalid syntax and unused variables.
 The final validation result contains no errors:
 
-![PEP8 results](docs/pep8.png)
+![PEP8 results image](docs/pep8.png)
 
 
 ### Issues and Bugs

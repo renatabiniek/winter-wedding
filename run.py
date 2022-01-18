@@ -418,7 +418,7 @@ def end_program():
     """
     print("--------------------------------")
     print("THANK YOU FOR USING THIS RSVP TOOL\n")
-    print("Click RUN PROGRAM to run it again.")
+    # print("Click RUN PROGRAM to run it again.\n")
 
 
 def confirm_rsvp():
