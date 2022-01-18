@@ -39,7 +39,6 @@
 
 ![RSVP Tool image](docs/rsvp-tool.png)
 
-<br>
 
 ## Introduction
 ---
