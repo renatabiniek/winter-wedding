@@ -113,6 +113,8 @@ The only addition to the design is the intro logo shown when the program starts.
 
   ![Diet choice image](docs/diet.png)
 
+  *Responses are recorded on Google Sheet with 2 worksheets.*
+
 * Checking for duplicated response attempt and printing back a message to the user
 
   ![Duplicated email image](docs/duplicate.png)
@@ -242,17 +244,37 @@ I tested the program considering the user stories from the UX section as well.
 
   User is lead through a series of RSVP questions and their answers are recorded once they complete the path.
 
+  *Start* 
+
+  ![RSVP start image](docs/rsvp-start.png)
+
+  *Questions*
+
+  ![RSVP response image](docs/response.png)
+
+  ![Guest count image](docs/guests.png)
+
+  ![Diet choice image](docs/diet.png)
+
+  *End*
+
+  ![RSVP end image](docs/rsvp-end.png)
+
 * as an invited guest, I want to be able to see a confirmation of my responses
 
   **Test result:**  PASS
 
   Detailed confirmation of the repsonses is printed in the terminal at the end of the path.
 
+  ![RSVP confirmation image](docs/confirmation.png)
+
 * as a user, I want to clearly understand what actions are required
 
   **Test result:**  PASS
 
-  Each question has clear instruction as for the detials and format required, available options are cleary presented and user is informed how to select them.
+  Each question has clear instruction as for the details and format required, available options are cleary presented and user is informed how to select them.
+
+  ![Actions image](docs/actions.png)
 
 * as a user, I want to be clearly notified about any errors during the RSVP process
 
@@ -260,17 +282,41 @@ I tested the program considering the user stories from the UX section as well.
 
   Each time incorrect value is entered, the user sees details of the error in the terminal, and has an option to enter data again until it's valid.
 
+  *Incorrect email syntax*
+
+  ![Incorrect format image](docs/incorrect-format.png)
+  
+  *Incorrect number of values entered*
+
+  ![Incorrect number image](docs/incorrect-number.png)
+  
+  *Number outside of the specified selection*
+
+  ![Incorrect kids count image](docs/kids-error.png)
+  
+  *At least 1 adult has to attend if the RSVP is Yes*
+
+  ![Incorrect adults count image](docs/no-adults.png)
+
+  *Invalid input*
+
+  ![Invalid choice image](docs/invalid-choice.png)
+
 * as a returning user, I want to be notified if my response had already been recorded and what it said
 
   **Test result:**  PASS
 
   The program looks up the provided email address on the Google Sheet, and if email is already recorded, it informs the user and prints details of the RSVP in the terminal. 
 
+  ![Duplicated email image](docs/duplicate.png)
+
 * as an admin of the tool, I want to be able to access overview of RSVPs received
 
   **Test result:**  PASS
 
   Admin can request the admin overview that is calculated based on the current data on the Google Sheet. The overview is printed in the terminal.
+
+  ![Coordinator overview image](docs/overview.png)
 
 ### Validator Testing
 
