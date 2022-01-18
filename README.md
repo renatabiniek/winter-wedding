@@ -43,7 +43,7 @@
 ---
 
 Winter Wedding RSVP tool is a terminal based application that allows users to RSVP to a wedding invite they had received.
-It works with Google Sheets to record and retrieve individual responses, as well as to calculate totals and return them to the admin of the application.
+It works with Google Sheets to record and retrieve individual responses, as well as to calculate totals and return them to the wedding coordinator.
 The data can then be used for further planning linked to the event.
 
 
@@ -58,15 +58,16 @@ The data can then be used for further planning linked to the event.
 ### Target audience
 
 * Specific group of guests and their families who had been invited to a wedding
+* Wedding coordinator
 
 ### User stories:
 
-* as an invited guest, I want to be able send my RSVP
+* as an invited guest, I want to be able to send my RSVP
 * as an invited guest, I want to be able to see a confirmation of my responses
 * as a user, I want to clearly understand what actions are required
 * as a user, I want to be clearly notified about any errors during the RSVP process
 * as a returning user, I want to be notified if my response had already been recorded and what it said
-* as an admin of the tool, I want to be able to access overview of RSVPs received
+* as the wedding coordinator, I want to be able to access overview of RSVPs received
 
 ### Structure:
 
@@ -97,7 +98,7 @@ The only addition to the design is the intro logo shown when the program starts.
 
 ### Existing Features
 
-* Option to access the tool as a wedding guest (and RSVP) or the wedding coordinator (to preview admin summary of all RSVPs received)
+* Option to access the tool as a wedding guest (and RSVP) or the wedding coordinator (to preview summary of all RSVPs received)
 
   ![Start options image](docs/start.png)
 
@@ -134,8 +135,8 @@ Due to time constraints, I was unable to implement all planned features. In the 
 
 * Option for the user to quit the RSVP flow - at the moment, they have to complete the selected flow or press Run Program button
 * Option for the returning guest to cancel or amend their RSVP
-* Automation to send out emails with confirmation to the guest and to the admin using Zapier 
-* Add authorisation option to access admin overview
+* Automation to send out emails with confirmation to the guest and to the wedding coordinator using Zapier 
+* Add authorisation option to access the overview as the admin only
 
 ## Technologies used
 ---
@@ -218,7 +219,7 @@ Any issues found, were addressed at that stage and double checked before moving 
 * I tested input validation by:
   * entering email address in incorrect format
   * entering email address that already is on the Google Sheet
-  * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: G/A)
+  * entering values that don't match the expected values (response: Y/N, diet: V/VG/GF/S, end: W/C)
   * entering incorrect number of guests (adults = 0 or > 2, kids > 6) 
   * entering guest data in incorrect format (not exactly 2 numbers separated by a comma)
 
@@ -238,11 +239,11 @@ Any issues found, were addressed at that stage and double checked before moving 
 
 I tested the program considering the user stories from the UX section as well.
 
-* as an invited guest, I want to be able send my RSVP
+* as an invited guest, I want to be able to send my RSVP
 
   **Test result:**  PASS
 
-  User is lead through a series of RSVP questions and their answers are recorded once they complete the path.
+  User is led through a series of RSVP questions and their answers are recorded once they complete the path.
 
   *Start* 
 
@@ -310,11 +311,11 @@ I tested the program considering the user stories from the UX section as well.
 
   ![Duplicated email image](docs/duplicate.png)
 
-* as an admin of the tool, I want to be able to access overview of RSVPs received
+* as the wedding coordinator, I want to be able to access overview of RSVPs received
 
   **Test result:**  PASS
 
-  Admin can request the admin overview that is calculated based on the current data on the Google Sheet. The overview is printed in the terminal.
+  Coordinator can request the overview that is calculated based on the current data on the Google Sheet. The overview is printed in the terminal.
 
   ![Coordinator overview image](docs/overview.png)
 
@@ -365,3 +366,5 @@ Thank you to:
 
 *This program has been created for educational purposes only, as part of Code Institute’s Python Essentials Portfolio Project 3.
 The requirements are to build a command-line application that allows your users to manage a common dataset.*
+
+[Back to top](#Table-of-Contents)
