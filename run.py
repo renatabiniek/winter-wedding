@@ -26,9 +26,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('winter_wedding')
 
-# Empty list to collect responses from terminal and
-# later append to the main worksheet
-rsvp_info = []
+# Validation set for options available
+# at the start (wedding guest or coordinator)
+GUEST_COORDINATOR_VALIDATION_SET = ['W', 'C']
 
 
 def show_intro_options():
@@ -47,22 +47,19 @@ def show_intro_options():
         option_str = input("Enter W or C:\n").upper()
         print("Checking your input...")
 
-        if validate_option(option_str):
+        if validate_input(option_str, GUEST_COORDINATOR_VALIDATION_SET):
             print("Input is valid!\n")
             break
 
     return option_str
 
 
-def validate_option(value):
+def validate_input(value, validation_set=['Y', 'N']):
     """
-    Checks that the response is W or C,
-    returns True if valid response.
+    Validates option selected is contained
+    in validation set and returns the option
     """
-    if value not in ["W", "C"]:
-        return False
-
-    return True
+    return value in validation_set
 
 
 def run_selected_option(value):
@@ -75,7 +72,7 @@ def run_selected_option(value):
         guest_email = get_guest_info()
 
         # If email already on the worksheet, confirm
-        # # RSVP recorded and end program
+        # RSVP recorded and end program
         if is_returning_guest(guest_email):
             rsvp_row_number = find_a_row(guest_email)
             rsvp_summary = return_response_details(rsvp_row_number)
@@ -83,21 +80,38 @@ def run_selected_option(value):
             end_program()
         else:
             submission_date = get_timestamp()
+
+            # Empty list to hold rsvp responses
+            rsvp_info = []
+
+            # Appending responses
             rsvp_info.append(submission_date)
             rsvp_info.append(guest_email)
             rsvp_response = get_response()
+            rsvp_info.append(rsvp_response)
+
+            guests_and_meals = handle_accept_or_decl(rsvp_response)
+            if guests_and_meals:
+                for items in guests_and_meals:
+                    rsvp_info.append(items)
+
+            # Appends new row of responses to "main" worksheet
             add_guest(rsvp_info)
+            # Calculates totals and percentage
             rsvp_total = increment_rsvp_count()
             increment_accept_or_decl(rsvp_response)
             calculate_percentage(rsvp_total)
+            # Confirm RSVP, get and print RSVP details
             confirm_rsvp()
             rsvp_row_number = find_a_row(guest_email)
             rsvp_summary = return_response_details(rsvp_row_number)
             print_rsvp_details(rsvp_summary)
+            # End message
             end_program()
 
     elif value == "C":
         print("One moment, retrieving RSVP data...\n")
+        # Get and print overview of all
         admin_summary = get_admin_overview()
         print_rsvp_details(admin_summary)
         end_program()
@@ -184,13 +198,10 @@ def add_guest(data):
 def get_timestamp():
     """
     Gets current date and time and parses it into the selected format
-    and appends to the rsvp_info list
     """
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
-    stamp = now.strftime("%d/%m/%Y %H:%M:%S")
-
-    return stamp
+    return now.strftime("%d/%m/%Y %H:%M:%S")
 
 
 def get_response():
@@ -204,48 +215,43 @@ def get_response():
         print("Are you able to join us?")
         guest_response = input("Enter Y (Yes) or N (No):\n").upper()
 
-        if validate_response(guest_response):
-            rsvp_info.append(guest_response)
+        if validate_input(guest_response):
             print("Checking your response...\n")
             break
 
-    handle_accept_or_decl(guest_response)
     return guest_response
-
-
-def validate_response(value):
-    """
-    Checks that the response is Y or N,
-    returns True if valid response.
-    """
-    if value not in ["Y", "N"]:
-        return False
-
-    return True
 
 
 def handle_accept_or_decl(value):
     """
     Checks for accept or decline response.
-    If the response is Yes, next question is displayed.
+    If the response is Yes, collects data on no of guests,
+    meal options and appends to result list.
+    Returns result to be appended to the rsvp_info list.
     """
-    if value == "N":
-        print("We're sorry you can't make it.")
-        print("But don't worry... ")
-        print("we'll save you some cake!\n")
-
-    elif value == "Y":
+    if value == "Y":
         print("You said YES!")
         print("We're looking forward to seeing you on the day.\n")
-        get_number_of_guests()
+        guests = get_number_of_guests()
+        result = []
+        for guest in guests:
+            result.append(guest)
         meal_selected = get_diet()
         increment_meal_choice(meal_selected)
+        result.append(meal_selected)
+
+        return result
+
+    print("We're sorry you can't make it.")
+    print("But don't worry... ")
+    print("we'll save you some cake!\n")
+    return None
 
 
 def get_number_of_guests():
     """
     Request number of adult guests and no of children
-    as a list of strings separated by commas.
+    as a list of strings separated by a comma.
     """
     while True:
         print("Let us know who's coming with you.")
@@ -257,48 +263,28 @@ def get_number_of_guests():
         guests_str = input("Enter number of adults and kids here:\n")
         guests = guests_str.split(",")
 
-        if validate_no_of_guests(guests) and validate_adult_att(guests):
-            for guest in guests:
-                rsvp_info.append(guest)
+        if validate_attendances(guests):
             print("Number of guests is correct!\n")
             break
 
     return guests
 
 
-def validate_no_of_guests(values):
+def validate_attendances(values):
     """
-    Inside try, converts strings with numbers to integers,
-    raises ValueError if string cannot be converted into a number,
-    if there aren't exactly 2 values.
+    Inside try, converts strings with numbers to integers.
+    Raises ValueError if string cannot be converted into a number,
+    if there aren't exactly 2 values and if unexpected number
+    is entered for both - adults and kids.
     """
     try:
-        guest_count = [int(value) for value in values]
-        if len(guest_count) != 2:
+        int_values = [int(value) for value in values]
+        if len(int_values) != 2:
             raise ValueError(
-                f"Two numbers are required, you provided {len(guest_count)}"
+                f"Two numbers are required, you provided {len(int_values)}"
             )
-    except ValueError as error:
-        print(f"Invalid data: {error}, please try again.\n")
-        return False
-
-    return True
-
-
-def validate_adult_att(values):
-    """
-    Checks that there is at least one adult attending,
-    and no more than two adults per invite,
-    by validating that the first integer in the list
-    is not == 0 and not > 2. Also check that there is
-    no more than 6 kids per invite.
-    """
-    print("Validating number of guests...\n")
-
-    try:
-        guests_int = [int(value) for value in values]
-        adults = guests_int[0]
-        kids = guests_int[1]
+        adults = int_values[0]
+        kids = int_values[1]
         if adults == 0:
             raise ValueError(
                 f"Looks like {adults} adults are attending"
@@ -321,9 +307,8 @@ def validate_adult_att(values):
 def get_diet():
     """
     Requests the guest to select dietary requirements.
-    One option per invite allowed.
     Repeat request until valid meal option selected.
-    If valid, append the choice to the rsvp_info list.
+    If valid, return the meal choice.
     """
 
     while True:
@@ -332,7 +317,6 @@ def get_diet():
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
         if validate_meal_choice(meal_choice_up):
-            rsvp_info.append(meal_choice_up)
             break
 
     print("Thank you, one moment please...")
@@ -530,12 +514,10 @@ def calculate_percentage(value):
     Calculate what percentage of responses
     has been received and rounds the result to 2 decimal places.
     """
-    # print("Calculating percentage")
     whole = int(SHEET.worksheet("totals").acell('A2').value)
     calc_percentage = float(value)/float(whole) * 100
     percentage = str(round(calc_percentage, 2)) + "%"
     update_selected_cell(2, 11, percentage)
-    # print("Finished calculating percentage!")
     print("All done! Yor response has been recorded.\n")
     return percentage
 
@@ -578,9 +560,6 @@ def main():
 
         if option == 'N':
             break
-
-        # wipe data
-        rsvp_info.clear()
 
 
 main()
