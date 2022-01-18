@@ -89,10 +89,6 @@ def run_selected_option(value):
             add_guest(rsvp_info)
             rsvp_total = increment_rsvp_count()
             increment_accept_or_decl(rsvp_response)
-
-            if rsvp_response == "Y":
-                count_adults()
-
             calculate_percentage(rsvp_total)
             confirm_rsvp()
             rsvp_row_number = find_a_row(guest_email)
@@ -190,7 +186,6 @@ def get_timestamp():
     Gets current date and time and parses it into the selected format
     and appends to the rsvp_info list
     """
-    # print("Getting timestamp...")
     now = datetime.now()
     # Format the date and time as dd/mm/YY H:M:S
     stamp = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -200,7 +195,8 @@ def get_timestamp():
 
 def get_response():
     """
-    Gets Yes or No response from the guest.
+    Gets Yes or No response from the guest
+    invited to the wedding.
     Y if attending, N if not attending.
     """
     while True:
@@ -231,8 +227,7 @@ def validate_response(value):
 def handle_accept_or_decl(value):
     """
     Checks for accept or decline response.
-    If response is No, this ends the program.
-    If it's Yes, next question is displayed.
+    If the response is Yes, next question is displayed.
     """
     if value == "N":
         print("We're sorry you can't make it.")
@@ -296,7 +291,7 @@ def validate_adult_att(values):
     and no more than two adults per invite,
     by validating that the first integer in the list
     is not == 0 and not > 2. Also check that there is
-    no more than 6 kids per invitee.
+    no more than 6 kids per invite.
     """
     print("Validating number of guests...\n")
 
@@ -326,6 +321,7 @@ def validate_adult_att(values):
 def get_diet():
     """
     Requests the guest to select dietary requirements.
+    One option per invite allowed.
     Repeat request until valid meal option selected.
     If valid, append the choice to the rsvp_info list.
     """
@@ -336,7 +332,6 @@ def get_diet():
         meal_data = input("Enter your choice here: \n")
         meal_choice_up = meal_data.upper()
         if validate_meal_choice(meal_choice_up):
-            # print("Selected meal option is valid!")
             rsvp_info.append(meal_choice_up)
             break
 
@@ -350,7 +345,6 @@ def validate_meal_choice(value):
     Checks that the value entered by the user
     matches the available options.
     """
-    # print("Validating selected meal option...")
 
     if value not in ["V", "VG", "GF", "S"]:
         print(f"Options are: V, VG, GF or S. You entered {value}")
@@ -418,7 +412,6 @@ def end_program():
     """
     print("--------------------------------")
     print("THANK YOU FOR USING THIS RSVP TOOL\n")
-    # print("Click RUN PROGRAM to run it again.\n")
 
 
 def confirm_rsvp():
@@ -429,6 +422,7 @@ def confirm_rsvp():
     """
     print("Thank you for letting us know!\n")
     print("We recorded your RSVP as follows:")
+
 
 # Functions calculating totals start here
 
@@ -441,9 +435,7 @@ def increment_rsvp_count():
     """
     print("Updating totals...")
     rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
-    # print(rsvp_total_cell)
     rsvp_total_cell += 1
-    # print(rsvp_total_cell)
     update_selected_cell(2, 2, rsvp_total_cell)
 
     return rsvp_total_cell
@@ -459,6 +451,7 @@ def increment_accept_or_decl(value):
         yes_responses_cell = int(SHEET.worksheet("totals").acell('C2').value)
         yes_responses_cell += 1
         update_selected_cell(2, 3, yes_responses_cell)
+        count_adults()
         count_kids()
 
     elif value == "N":
@@ -481,11 +474,8 @@ def count_kids():
     kids_values = kids[1:]
     kids_int = [int(kid) for kid in kids_values]
     sum_kids = sum(kids_int)
-    # print("Calculating total number of kids")
-    # print(sum_kids)
-    # print("Updating total kids column")
+    print("Calculating total number of kids")
     update_selected_cell(2, 6, sum_kids)
-    # print(f"Total of kids attending: {sum_kids}")
     return sum_kids
 
 
@@ -502,11 +492,8 @@ def count_adults():
     adults_values = adults[1:]
     adults_int = [int(adult) for adult in adults_values]
     sum_adults = sum(adults_int)
-    # print("Calculating total number of adults")
-    # print(sum_adults)
-    # print("Updating total adults column")
+    print("Calculating total number of adults")
     update_selected_cell(2, 5, sum_adults)
-    # print(f"Total of adults attending: {sum_adults}")
     return sum_adults
 
 
@@ -516,7 +503,6 @@ def increment_meal_choice(value):
     and updates total in the relevant column on
     total worksheet.
     """
-    # print(f"Recording your meal choice...")
 
     if value == "V":
         vegetarian = int(SHEET.worksheet("totals").acell('G2').value)
