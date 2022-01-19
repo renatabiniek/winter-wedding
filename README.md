@@ -341,7 +341,7 @@ The final validation result contains no errors:
 
 * Count of adults and children wasn't increasing as expected at one point - this was due to incorrect order of functions called in main(). The count functions use data from the main worksheet but were called before the current RSVP data was added to the main worksheet. Fixed the order of them to be called after the data is added.
 
-* A list of new responses was getting attached to the previous row of responses in the main worksheet at one point. This happened after a while loop was added to display a final option to start the tool again. The issue was due to the use of the global variable rsvp_info. When user selected to start again, their responses were added to the existing list. This was solved by wiping the data in the rsvp_info list when program restarts.
+* Global variable: A number of issues resulted from me using a global variable rsvp_info that was collecting all individual inputs into an empty list. During the development, at one point a list of new responses was getting attached to the previous row of responses in the main worksheet at one point. This happened after a while loop was added to display a final option to start the tool again. When user selected to start again, their responses were added to the existing list. This was solved by wiping the data in the rsvp_info list when program restarts. However, at the refactoring stage upon advice from my mentor, the global variable has been moved to run_selected_option() and linked functions have been refactored accordingly, so that response values keep getting appended to the empty list, but with the variable being local.
 
 * Known issue: There are multiple yellow warning messages in the terminal problems tab that relate to the image art used. Correcting them would distort the image so I left them as they are.
 
@@ -359,7 +359,7 @@ The final validation result contains no errors:
 
 Thank you to:
 
-* My mentor Guido Cecilio for the invaluable support and feedback.
+* My mentor Guido Cecilio for the invaluable support and feedback. I learned so much during our sessions!
 * The community on Slack.
 * My partner for continuous support.
 
