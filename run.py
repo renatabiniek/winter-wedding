@@ -111,7 +111,7 @@ def run_selected_option(value):
 
     elif value == "C":
         print("One moment, retrieving RSVP data...\n")
-        # Get and print overview of all
+        # Get and print overview of all responses
         admin_summary = get_admin_overview()
         print_rsvp_details(admin_summary)
         end_program()
@@ -188,7 +188,8 @@ def validate_email(email):
 
 def add_guest(data):
     """
-    Append new row with collected responses.
+    Append new row with collected responses
+    to the main worksheet.
     """
     print("We're recording your response.")
     main_worksheet = SHEET.worksheet("main")
@@ -208,7 +209,6 @@ def get_response():
     """
     Gets Yes or No response from the guest
     invited to the wedding.
-    Y if attending, N if not attending.
     """
     while True:
         print("We really hope to see you there!")
@@ -227,7 +227,8 @@ def handle_accept_or_decl(value):
     Checks for accept or decline response.
     If the response is Yes, collects data on no of guests,
     meal options and appends to result list.
-    Returns result to be appended to the rsvp_info list.
+    Returns result to be later appended
+    to the rsvp_info list.
     """
     if value == "Y":
         print("You said YES!")
@@ -339,9 +340,11 @@ def validate_meal_choice(value):
 
 
 def is_returning_guest(email):
-    """Checks if email already exists
+    """
+    Checks if email already exists
     in the email column on the main spreadsheet and
-    prints a message to the guest to RSVP had already been recorded"""
+    prints a message to the guest if RSVP had already been recorded.
+    """
 
     guest_list = SHEET.worksheet("main").col_values(2)
 
@@ -356,7 +359,7 @@ def is_returning_guest(email):
 def find_a_row(value):
     """
     Finds a row with matching email string
-    and return row number
+    and returns row number with that string.
     """
     row_with_guest = SHEET.worksheet("main").find(value)
     return row_with_guest.row
@@ -364,7 +367,7 @@ def find_a_row(value):
 
 def return_response_details(value):
     """
-    Reads values in header row and
+    Reads values in the header row and
     values in the row with the specific email address
     and creates a dictionary from those 2 lists
     """
@@ -382,7 +385,7 @@ def return_response_details(value):
 
 def print_rsvp_details(dictionary):
     """
-    Print details of the rsvp dictionary
+    Prints details of the rsvp dictionary
     in a more readable format back to the guest
     """
 
@@ -400,7 +403,7 @@ def end_program():
 
 def confirm_rsvp():
     """
-    Prints message to guest to confirm
+    Prints message to the guest to confirm
     RSVP has been recorded and prints summary
     of their responses in terminal.
     """
@@ -414,8 +417,8 @@ def confirm_rsvp():
 def increment_rsvp_count():
     """
     Converts string into integer and increments total number
-    of reponses received in RSVP column
-    on totals worksheet by 1;
+    of reponses received by 1 in the RSVP column
+    on totals worksheet.
     """
     print("Updating totals...")
     rsvp_total_cell = int(SHEET.worksheet("totals").acell('B2').value)
@@ -511,7 +514,7 @@ def increment_meal_choice(value):
 
 def calculate_percentage(value):
     """
-    Calculate what percentage of responses
+    Calculates what percentage of responses
     has been received and rounds the result to 2 decimal places.
     """
     whole = int(SHEET.worksheet("totals").acell('A2').value)
