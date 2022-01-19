@@ -161,6 +161,8 @@ Due to time constraints, I was unable to implement all planned features. In the 
 ---
 ### Deploying to Heroku
 
+[Deployed program on Heroku](https://winter-wedding.herokuapp.com/)
+
 The project was developed in GitPod, committed to Git and pushed to GitHub. 
 The site was deployed to Heroku with the following steps:
 
